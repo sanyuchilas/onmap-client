@@ -1,0 +1,40 @@
+.col {
+  margin-top: auto;
+  flex-grow: 1;
+  font-size: 1.4rem;
+  padding-top: .5rem;
+}
+
+.row_subtitle {
+  background-color: #a4a4a4;
+  border-radius: .417rem;
+  padding: .5rem;
+  font-size: 1.5rem;
+  width: 100%;
+  margin-bottom: .5rem;
+}
+
+.row_content {
+  font-size: 1.2rem;
+  width: 100%;
+  margin-bottom: .5rem;
+}
+
+.animate {
+  animation: ani .51s ease-in-out infinite;
+}
+
+@keyframes ani {
+  0% {
+    transform: rotate(-.5deg);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(.5deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotate(-.5deg);
+    opactiy: 1;
+  }
+}

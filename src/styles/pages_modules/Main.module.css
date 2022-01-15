@@ -1,0 +1,42 @@
+#options {
+  justify-content: flex-start;
+  overflow: auto;
+  z-index: 10;
+  width: 100%;
+  padding: 0.1rem 0; /* 0.43rem 0.5rem */
+}
+
+#options_auth {
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: auto;
+  z-index: 10;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#add_mark_preview {
+  opacity: .6;
+  top: 50%;
+  left: 50%;
+  margin-left: -1.35rem;
+  margin-top: -5.95rem;
+  position: absolute;
+  display: none;
+  width: 2.8rem;
+  height: 6.1rem;
+  z-index: 10;
+  transition: all .1s ease-in-out;
+}
+
+#add_mark_preview:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+body.touch #add_mark_preview:hover {
+  opacity: 1 !important;
+}
+
+#add_mark_preview:active {
+  opacity: .9;
+}

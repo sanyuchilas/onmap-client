@@ -1,0 +1,6 @@
+export const MAIN_ROUTE = '/'
+export const PLACEMARK_ROUTE = '/placemark'
+export const LOGIN_ROUTE = '/login'
+export const REGISTRATION_ROUTE = '/registration'
+export const ADD_PLACEMARK_ROUTE = '/addplacemark'
+export const FRIENDS_ROUTE = '/friends'

@@ -1,0 +1,39 @@
+input {
+  font-family: 'Comic Sans MS';
+  border: .17rem solid #c4c4c4;
+  border-radius: .417rem;
+  margin: .5rem;
+  color: #a4a4a4;
+  padding: .3rem;
+  background: #f7f7f788;
+  width: 90%;
+  max-width: 30rem;
+  height: 3.2rem;
+  font-size: 1.3rem;
+}
+
+textarea {
+  font-family: 'Comic Sans MS';
+  border: .17rem solid #c4c4c4;
+  border-radius: .417rem;
+  color: #a4a4a4;
+  padding: .3rem;
+  background: #f7f7f788;
+  min-width: 90%;
+  width: 100%;
+  max-width: 100%;
+  min-height: 5rem;
+  height: 7rem;
+  max-height: 7rem;
+  font-size: 1.3rem;
+}
+
+input.active, textarea.active {
+  border: .17rem solid #a4a4a4;
+  background: rgba(255, 255, 255, 0.712);
+  transition: all 0.1s !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #a4a4a475;
+}

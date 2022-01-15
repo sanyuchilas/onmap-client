@@ -1,0 +1,26 @@
+.animate_auth {
+  opacity: 0;
+  animation: ani_auth 0.2s ease-in-out forwards;
+}
+
+.main {
+  justify-content: center;
+  box-shadow: 0 0 .7rem #a4a4a4;
+  flex-grow: 0;
+  padding: 1rem;
+  border-radius: 1.417rem;
+  min-width: 60%;
+  background: linear-gradient(-45deg, #ffeaddab 0%, rgba(240, 225, 212, 0) 119.15%);
+  margin: auto auto;
+}
+
+@keyframes ani_auth {
+  0% {
+    opacity: 0;
+    transform: scale(0.9925);
+  }
+  100% {
+    opacity: 1;
+    transfrom: scale(1);
+  }
+}

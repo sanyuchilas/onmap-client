@@ -1,0 +1,60 @@
+#input_file {
+  background: none;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+}
+
+.file_button {
+  font-size: 1.5rem !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto !important;
+  padding: .5rem !important;
+  padding-bottom: 0.6rem !important;
+}
+
+#add_files {
+  padding: .1rem 0rem .1rem .5rem;
+  margin-top: 0.5rem;
+  background-color: #fff;
+  border-radius: .417rem;
+  width: 100%;
+  height: auto;
+  max-height: 20.8rem;
+  opacity: 1;
+  color: #d8c8c8;
+  font-size: 1.2rem;
+  align-items: flex-start;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+.one_add_file {
+  align-items: center;
+  margin: .2rem 0;
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.delete_file {
+  width: auto;
+  height: auto;
+  margin-left: auto;
+}
+
+.cross_img {
+  opacity: 0.6;
+  height: .9rem;
+  width: .9rem;
+  margin-right: 0.5rem;
+  transition: all .1s ease-in-out;
+}
+
+.cross_img:hover, .cross_img:active {
+  cursor: pointer;
+  opacity: 0.9;
+}

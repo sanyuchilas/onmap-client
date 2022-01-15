@@ -1,0 +1,11 @@
+.header {
+  padding: 0.41rem;
+  align-items: center;
+  padding-top: 0;
+  background: #c4c4c4;
+  font-size: 1.42rem;
+  border-radius: 0 0 0.417rem 0.417rem;
+  margin-bottom: 0rem;
+  z-index: 10;
+  box-shadow: 0 0 .5rem #a4a4a4; 
+}

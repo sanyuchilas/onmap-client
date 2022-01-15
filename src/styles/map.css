@@ -1,0 +1,46 @@
+#map {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  color: #a4a4a4;
+  /* margin-top: -2.7rem; */
+  margin-left: -0.7rem;
+  width: 100%;
+  height: 100%;
+  margin-right: auto;
+}
+
+.map > ymaps {
+  font-size: 0.7rem;
+  /* border-radius: 0.417rem; */
+  overflow: hidden;
+}
+
+/* [class*='copyrights-pane'] {
+  display: none !important;
+} */
+
+[class*='map-copyrights-promo'] {
+  display: none;
+}
+
+[class*='gototech'][target='_blank'] {
+  display: none;
+}
+
+/* [class*='ground-pane'] {
+  filter: grayscale(0.5);
+} */
+
+.balloon__address {
+  color: blue;
+}
+
+.balloon a {
+  color: black;
+}
+
+[class*=balloon__close-button] {
+  opacity: 1;
+}

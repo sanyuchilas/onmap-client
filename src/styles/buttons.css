@@ -1,0 +1,71 @@
+span#file_button, button {
+  font-family: 'Comic Sans MS';
+  box-shadow: 0 0 .3rem #a4a4a4;
+  border-radius: 0.417rem;
+  padding: 0rem 0.41rem;
+  color: #f6f4f4;
+}
+
+span#file_button, button:hover {
+  cursor: pointer !important;
+  transition: all 0.1s !important;
+}
+
+button.dark {
+  background: #a4a4a4;
+  font-size: 1.42rem;
+  height: 2rem;
+  margin: 0.5rem;
+}
+
+button.dark:hover {
+  background: #fff !important;
+  color: #d8c8c8 !important;
+}
+
+body.touch button.dark:hover {
+  background: #a4a4a4 !important;
+  color: #f6f4f4 !important;
+}
+
+button.dark:active, body.touch button.dark:active {
+  background: #f7f7f7 !important;
+  color: #d8c8c8 !important;
+}
+
+span#file_button, button.light {
+  background: #c4c4c4;
+  border: 0.17rem solid #c4c4c4;
+  font-size: 1.2rem;
+  height: 2rem;
+}
+
+span#file_button:hover, button.light:hover {
+  background: #fff !important;
+  border: 0.17rem solid #fff;
+  color: #d8c8c8 !important;
+}
+
+body.touch button.light:hover, body.touch span#file_button:hover {
+  background: #c4c4c4 !important;
+  border: 0.17rem solid #c4c4c4 !important;
+  color: #f6f4f4 !important;
+}
+
+span#file_button:active, button.light:active, body.touch span#file_button:active, body.touch button.light:active {
+  background: #f7f7f7 !important;
+  border: 0.17rem solid #f7f7f7 !important;
+  color: #d8c8c8 !important;
+}
+
+button.light.active {
+  border: 0.17rem solid #bbbbbb !important;
+  background: #fff !important;
+  color: #d8c8c8 !important;
+}
+
+body.touch button.light.active {
+  border: 0.17rem solid #bbbbbb !important;
+  background: #fff !important;
+  color: #d8c8c8 !important;
+}
