@@ -74,7 +74,7 @@ const Auth = observer(() => {
       <div id="animate_main_auth" className={classes.main + " main col"}>
         <div className="col" style={{width: '100%'}}>
           <div 
-          className='dark-gray-color'
+            className='dark-gray-color'
             style={{
               fontSize: '2rem'
             }}

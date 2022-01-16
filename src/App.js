@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import AppRouter from 'components/AppRouter';
+import { check } from 'http/userAPI';
+import { Context } from 'index';
+import React, { useContext, useEffect, useState } from 'react'
+import {BrowserRouter} from 'react-router-dom'
 
 function App() {
+  const {user} = useContext(Context)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    check().then(data => {
+      user.setIsAuth(true)
+    }).finally(() => setLoading(false))
+  }, [])
+
+  if (loading) {
+    return null
+    // return <div style={{
+    //   color: '#c4c4c4',
+    //   position: 'absolute',
+    //   height: '100%',
+    //   width: '100%',
+    //   display: 'flex',
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    //   textAlign: 'center'
+    // }}>Загрузка страницы...</div>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AppRouter/>
+    </BrowserRouter>
   );
 }
 

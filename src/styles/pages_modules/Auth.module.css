@@ -6,12 +6,11 @@
 .main {
   justify-content: center;
   box-shadow: 0 0 .7rem #a4a4a4;
-  flex-grow: 0;
   padding: 1rem;
   border-radius: 1.417rem;
   min-width: 60%;
   background: linear-gradient(-45deg, #ffeaddab 0%, rgba(240, 225, 212, 0) 119.15%);
-  margin: auto auto;
+  margin: 1rem .4rem;
 }
 
 @keyframes ani_auth {
