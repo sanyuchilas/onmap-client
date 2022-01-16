@@ -1,9 +1,9 @@
-import App from 'App';
-import 'styles/App.css'
+import App from './App';
+import './styles/App.css'
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
-import UserStore from 'store/UserStore';
-import { script } from 'yandex_map/map';
+import UserStore from './store/UserStore';
+import { script } from './yandex_map/map';
 
 document.cookie = "Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure"
 
