@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_ROUTE } from "utils/constants";
-import Map from '../components/Map'
-import horizontallScroll from "utils/horizontallScroll";
-import classes from '../styles/pages_modules/Main.module.css'
-import FriendsModal from "components/modals/friends_modal/FriendsModal";
-import AlertModal from "components/modals/AlertModal";
-import AddPlacemarkModal from "components/modals/add_placemark_modal/AddPlacemarkModal";
+import { LOGIN_ROUTE } from "./../utils/constants";
+import Map from './../components/Map'
+import horizontallScroll from "./../utils/horizontallScroll";
+import classes from './../styles/pages_modules/Main.module.css'
+import FriendsModal from "./../components/modals/friends_modal/FriendsModal";
+import AlertModal from "./../components/modals/AlertModal";
+import AddPlacemarkModal from "./../components/modals/add_placemark_modal/AddPlacemarkModal";
 import placemark_preview from './../assets/img/placemark_preview.png'
-import { Context } from "index";
+import { Context } from "./../index";
 import { observer } from "mobx-react-lite";
 
 const Main = observer(() => {

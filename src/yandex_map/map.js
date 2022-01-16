@@ -1,4 +1,4 @@
-import { PLACEMARK_ROUTE } from "utils/constants";
+import { PLACEMARK_ROUTE } from "./../utils/constants";
 
 export function script(url) {
   if (Array.isArray(url)) {

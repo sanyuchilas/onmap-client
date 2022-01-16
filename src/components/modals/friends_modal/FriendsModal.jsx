@@ -1,10 +1,9 @@
-import MyFooter from 'components/MyFooter';
 import React from 'react';
 import {Modal} from 'react-bootstrap'
 import classes from './FriendsModal.module.css'
-import RowRequestFriends from 'components/modals/friends_modal/RowRequestFriends';
-import RowYourFriends from 'components/modals/friends_modal/RowYourFriends';
-import RowAddFriends from 'components/modals/friends_modal/RowAddFriends';
+import RowRequestFriends from './RowRequestFriends';
+import RowYourFriends from './RowYourFriends';
+import RowAddFriends from './RowAddFriends';
 
 const FriendsModal = ({show, onHide}) => {
   return (

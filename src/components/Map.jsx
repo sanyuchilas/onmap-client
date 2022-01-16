@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {startYandexMap} from '../yandex_map/map'
+import {startYandexMap} from './../yandex_map/map'
 
 const Map = observer(() => {
   const navigate = useNavigate()

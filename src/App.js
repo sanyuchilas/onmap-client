@@ -1,6 +1,6 @@
-import AppRouter from 'components/AppRouter';
-import { check } from 'http/userAPI';
-import { Context } from 'index';
+import AppRouter from './components/AppRouter';
+import { check } from './http/userAPI';
+import { Context } from './index';
 import React, { useContext, useEffect, useState } from 'react'
 import {BrowserRouter} from 'react-router-dom'
 

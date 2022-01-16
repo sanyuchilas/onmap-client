@@ -1,5 +1,5 @@
-import MyFileInput from 'components/UI/file_input/MyFileInput';
-import MySelect from 'components/UI/select/MySelect';
+import MyFileInput from './../../UI/file_input/MyFileInput';
+import MySelect from './../../UI/select/MySelect';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import selectArrow from './../../../assets/img/selectArrow.svg'

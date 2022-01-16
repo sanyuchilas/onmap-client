@@ -1,8 +1,8 @@
-import Main from "pages/Main"
+import Main from "./../pages/Main"
 import React from "react"
-import { PLACEMARK_ROUTE, MAIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, ADD_PLACEMARK_ROUTE, FRIENDS_ROUTE } from "utils/constants"
-import PlaceMark from "pages/PlaceMark"
-import Auth from "pages/Auth"
+import { PLACEMARK_ROUTE, MAIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, ADD_PLACEMARK_ROUTE, FRIENDS_ROUTE } from "./../utils/constants"
+import PlaceMark from "./../pages/PlaceMark"
+import Auth from "./../pages/Auth"
 
 export const publicRoutes = [
   {

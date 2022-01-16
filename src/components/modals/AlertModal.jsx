@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { LOGIN_ROUTE } from 'utils/constants';
+import { LOGIN_ROUTE } from './../../utils/constants';
 
 const AlertModal = ({show, onHide, name}) => {
   const navigate = useNavigate()

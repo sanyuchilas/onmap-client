@@ -1,7 +1,7 @@
 import React from "react";
 import {Routes, Route, Navigate} from "react-router-dom"
-import { authRoutes, publicRoutes } from "router/routes";
-import { MAIN_ROUTE } from "utils/constants";
+import { authRoutes, publicRoutes } from "./../router/routes";
+import { MAIN_ROUTE } from "./../utils/constants";
 
 const AppRouter = () => {
   let isAuth = true
