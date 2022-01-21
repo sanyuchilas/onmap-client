@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Alexander-Keyer/onmap/static/css/main.6985afd5.css",
-    "main.js": "/Alexander-Keyer/onmap/static/js/main.9a65d6c8.js",
-    "static/media/comic.ttf": "/Alexander-Keyer/onmap/static/media/comic.07c9ea934a81bfb10ff5.ttf",
-    "static/media/placemark_preview.png": "/Alexander-Keyer/onmap/static/media/placemark_preview.da64517d9d0b82748c1a.png",
-    "index.html": "/Alexander-Keyer/onmap/index.html",
-    "static/media/cross.svg": "/Alexander-Keyer/onmap/static/media/cross.ea3b77b6863b5a45daf8790c283b0b13.svg",
-    "static/media/selectArrow.svg": "/Alexander-Keyer/onmap/static/media/selectArrow.e756ae936678e4a302fd11874da516d6.svg",
-    "main.6985afd5.css.map": "/Alexander-Keyer/onmap/static/css/main.6985afd5.css.map",
-    "main.9a65d6c8.js.map": "/Alexander-Keyer/onmap/static/js/main.9a65d6c8.js.map"
+    "main.css": "/Alexander-Keyer/onmap-client/static/css/main.6543eb22.css",
+    "main.js": "/Alexander-Keyer/onmap-client/static/js/main.21550890.js",
+    "static/media/comic.ttf": "/Alexander-Keyer/onmap-client/static/media/comic.07c9ea934a81bfb10ff5.ttf",
+    "static/media/placemark_preview.png": "/Alexander-Keyer/onmap-client/static/media/placemark_preview.da64517d9d0b82748c1a.png",
+    "index.html": "/Alexander-Keyer/onmap-client/index.html",
+    "static/media/cross.svg": "/Alexander-Keyer/onmap-client/static/media/cross.ea3b77b6863b5a45daf8790c283b0b13.svg",
+    "static/media/selectArrow.svg": "/Alexander-Keyer/onmap-client/static/media/selectArrow.e756ae936678e4a302fd11874da516d6.svg",
+    "main.6543eb22.css.map": "/Alexander-Keyer/onmap-client/static/css/main.6543eb22.css.map",
+    "main.21550890.js.map": "/Alexander-Keyer/onmap-client/static/js/main.21550890.js.map"
   },
   "entrypoints": [
-    "static/css/main.6985afd5.css",
-    "static/js/main.9a65d6c8.js"
+    "static/css/main.6543eb22.css",
+    "static/js/main.21550890.js"
   ]
 }
