@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from './../utils/constants';
 import { login, registration } from './../http/userAPI';
-import classes from './../styles/pages_modules/Auth.module.css'
+import classes from './Auth.module.css'
 
 const Auth = observer(() => {
   const {user} = useContext(Context)

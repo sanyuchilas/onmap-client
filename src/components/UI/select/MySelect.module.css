@@ -20,6 +20,15 @@
   margin-bottom: .5rem;
 }
 
+.title {
+  margin-right: .5rem;
+  text-align: left;
+}
+
+.select_arrow {
+  margin-right: .5rem;
+}
+
 .child {
   display: flex;
   color: #c4c4c4;
@@ -52,7 +61,15 @@
   width: 1.9rem;
 }
 
-#select_button.active {
+.active {
   background-color: #fff !important;
   color: #d8c8c8 !important; 
+}
+
+#select_button {
+  height: auto;
+  align-items: center;
+  margin: 0 0 .5rem 0;
+  width: 100%;
+  padding: .5rem;
 }

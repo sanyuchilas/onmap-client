@@ -8,8 +8,8 @@
 
 #options_auth {
   justify-content: flex-start;
-  width: 100%;
   margin-top: auto;
+  margin-right: auto;
   z-index: 10;
   overflow-x: auto;
   overflow-y: hidden;

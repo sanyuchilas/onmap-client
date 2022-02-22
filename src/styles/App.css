@@ -1,4 +1,9 @@
 /* https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.css */
+@font-face {
+  font-family: "Comic";
+  src: url('../assets/fonts/comic.ttf') format("truetype");
+}
+
 
 * {
   box-sizing: border-box;
@@ -11,10 +16,8 @@
 
 body, html {
   background: linear-gradient(0deg, #FFFAE8 0%, rgba(227, 212, 155, 0) 119.15%);
-  height: 100vh;
-  width: 100vw;
   font-size: 12.3px;
-  font-family: 'Comic Sans MS';
+  font-family: 'Comic';
   color: #f6f4f4;
   overflow-x: hidden;
 }
@@ -63,8 +66,8 @@ body, html {
 }
 
 #root {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
 .container {

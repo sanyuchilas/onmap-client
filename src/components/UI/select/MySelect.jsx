@@ -7,15 +7,14 @@ const MySelect = ({data, ...props}) => {
     <div {...props}>
       <button 
         id = {classes.select_button}
-        className={"row dark"}
-        style={{height: 'auto', alignItems: 'center', margin: '0 0 .5rem 0', width: '100%', padding: '.5rem'}}
+        className="row dark"
         onClick={() => {
           document.getElementsByClassName(classes.childs)[0].classList.toggle(classes.open)
         }}
       >
-        <span style={{textAlign: 'left', marginRight: '.5rem'}}>{data.title}</span>
+        <span className={classes.title}>{data.title}</span>
         <span className={classes.selected_child}></span>
-        <img src={data.img} style={{marginRight: '.5rem'}}/>
+        <img src={data.img} className={classes.select_arrow}/>
       </button>
       <div className={classes.childs + ' col'}>
         {data.childs.map(child => 

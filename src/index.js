@@ -24,4 +24,13 @@ function startApp() {
   if ('ontouchstart' in window) {
     document.body.classList.add('touch')
   }
+
+  const correct = () => {
+    document.body.style.height = window.innerHeight + 'px'
+    document.body.style.width = '100vw'
+  }
+
+  correct()
+
+  window.addEventListener('resize', correct)
 }

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "./../utils/constants";
 import Map from './../components/Map'
 import horizontallScroll from "./../utils/horizontallScroll";
-import classes from './../styles/pages_modules/Main.module.css'
+import classes from './Main.module.css'
 import FriendsModal from "./../components/modals/friends_modal/FriendsModal";
 import AlertModal from "./../components/modals/AlertModal";
 import AddPlacemarkModal from "./../components/modals/add_placemark_modal/AddPlacemarkModal";
@@ -124,7 +124,7 @@ const Main = observer(() => {
               Выйти
           </button>
         </div>
-        <div id={classes.options_auth} className="row" onWheel={() => horizontallScroll('options_auth')}>
+        <div id={classes.options_auth} className="row" onWheel={() => horizontallScroll(classes.options_auth)}>
           <button 
             className="light"
             onClick={() => {

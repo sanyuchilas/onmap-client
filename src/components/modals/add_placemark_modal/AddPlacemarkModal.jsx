@@ -39,15 +39,14 @@ const AddPlacemarkModal = ({show, onHide}) => {
         if (event.target.className !== 'active')
           Array.from(document.querySelectorAll('textarea')).map(textArea => textArea.classList.remove('active'))
       }}>
-        <div style={{padding: 0}} className="header row">
+        <div className={classes.header + " header row"}>
           <button 
-            className="dark"
-            style={{width: '100%', maxWidth: '10rem', padding: '0.5rem', height: '75%', marginRight: 'auto'}}
+            className={classes.back + " dark"}
             onClick={onHide}
           >
             Назад
           </button>
-          <button 
+          {/* <button 
             className="dark"
             onClick={() => {
               document.getElementById('add_placemark').classList.add(`${classes.animate}`)
@@ -64,10 +63,10 @@ const AddPlacemarkModal = ({show, onHide}) => {
             }}
           >
             <a href='#add_placemark' className='white-color'>Добавить метку</a>
-          </button>
+          </button> */}
         </div>
 
-        <div className="main" style={{display: 'flex', flexDirection: 'column'}}>
+        <div className={classes.main + " main col"}>
 
           <div className={classes.col + " col"}>
             <MySelect data={placmemrakSelect} style={{width: '100%', display: 'flex', flexDirection: 'column'}}/>

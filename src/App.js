@@ -16,16 +16,6 @@ function App() {
 
   if (loading) {
     return null
-    // return <div style={{
-    //   color: '#c4c4c4',
-    //   position: 'absolute',
-    //   height: '100%',
-    //   width: '100%',
-    //   display: 'flex',
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
-    //   textAlign: 'center'
-    // }}>Загрузка страницы...</div>
   }
 
   return (
