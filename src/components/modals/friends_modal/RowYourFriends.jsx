@@ -1,15 +1,15 @@
 import React from 'react';
+import classes from './RowsFriends.module.css'
 
 const RowYourFriends = ({name, ...props}) => {
   return (
     <div {...props}>
-      <div className='row light-gray-background' style={{borderRadius: '.417rem', width: '100%'}}>
-        <span style={{display: 'flex', alignItems: 'center', margin: '0 .6rem'}}>{name}</span>
-        <button className='dark' style={{marginLeft: 'auto', fontSize: '1.2rem'}}>Удалить</button>
+      <div className={classes.wrapper + ' row light-gray-background'}>
+        <span className={classes.user_name}>{name}</span>
+        <button className={classes.btn + ' dark'}>Удалить</button>
       </div>
       <button 
-        className='light' 
-        style={{whiteSpace: 'nowrap', marginLeft: '.5rem', height: '3rem'}}
+        className={classes.placemarks + ' light'} 
         onClick={evetn => evetn.target.classList.toggle('active')}
       >
         Метки

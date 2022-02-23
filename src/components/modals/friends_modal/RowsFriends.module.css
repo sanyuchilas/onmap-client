@@ -1,0 +1,28 @@
+.wrapper {
+  border-radius: .417rem;
+  width: 100%;
+  overflow-x: auto;
+  justify-content: flex-start !important;
+}
+
+
+.user_name {
+  display: flex;
+  align-items: center;
+  margin: 0 0.6rem;
+}
+
+.btn {
+  margin-left: auto !important;
+  font-size: 1.2rem !important;
+}
+
+.btn_2 {
+  margin-left: 0 !important;
+  font-size: 1.2rem !important;
+}
+
+.placemarks {
+  margin-left: 0.5rem;
+  height: 3rem !important;
+}

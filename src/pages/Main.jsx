@@ -66,11 +66,10 @@ const Main = observer(() => {
     
       {!user.isAuth && 
         <div className="header row">
-          <span style={{marginBottom: '-0.4rem'}}>
-            <span style={{marginRight: '0.4rem'}}>Войдите в аккаунт, чтобы оставить на карте свою частичку!</span>
+          <span className={classes.span_1}>
+            <span className={classes.span_2}>Войдите в аккаунт, чтобы оставить на карте свою частичку!</span>
             <button 
-              className="dark"
-              style={{marginLeft: '0.15rem'}}
+              className={classes.login_button + " dark"}
               onClick={() => navigate(LOGIN_ROUTE)}
             >
               Войти
@@ -80,48 +79,49 @@ const Main = observer(() => {
       }
 
       <div className="main col">
-        <div id={classes.options} 
-          className="row" 
-          onMouseOver={() => {
-            if (!document.body.className)
-              document.body.style.overflowY = 'hidden'
-          }}
-          onMouseOut={() => {
-            document.body.style.overflowY = 'auto'
-          }}
-          onWheel={() => horizontallScroll('options')}
-        >
-          <button 
-            id="sight" 
-            className="light" 
-            onClick={(event) => {
-              event.target.classList.toggle('active')
+        <div className={classes.row}>
+          <div id={classes.options} 
+            className="row" 
+            onMouseOver={() => {
+              if (!document.body.className)
+                document.body.style.overflowY = 'hidden'
             }}
-          >
-            Достопримечательности
-          </button>
-          <button 
-            id="hotels" 
-            className="light"
-            style={{margin: '0 0.57rem', whiteSpace: 'nowrap'}} 
-            onClick={(event) => {
-              event.target.classList.toggle('active')
+            onMouseOut={() => {
+              document.body.style.overflowY = 'auto'
             }}
+            onWheel={() => horizontallScroll(classes.options)}
           >
-            Гостиницы
-          </button>
+            <button 
+              id="sight" 
+              className={classes.select_type + " light"} 
+              onClick={(event) => {
+                event.target.classList.toggle('active')
+              }}
+            >
+              Достопримечательности
+            </button>
+            <button 
+              id="hotels" 
+              className={"light"}
+              onClick={(event) => {
+                event.target.classList.toggle('active')
+              }}
+            >
+              Гостиницы
+            </button>
+          </div>
           <button 
-            className="light"
-            onClick = {() => {
-              user.setIsAuth(false)
-              localStorage.removeItem('token')
+              className="light"
+              id={classes.logout_btn}
+              onClick = {() => {
+                user.setIsAuth(false)
+                localStorage.removeItem('token')
+              }}
+              style={{
+                display: user.isAuth ? 'block' : 'none'
             }}
-            style={{
-              marginLeft: 'auto',
-              display: user.isAuth ? 'block' : 'none'
-          }}
-          >
-              Выйти
+            >
+                Выйти
           </button>
         </div>
         <div id={classes.options_auth} className="row" onWheel={() => horizontallScroll(classes.options_auth)}>
@@ -140,13 +140,12 @@ const Main = observer(() => {
           </button>
           <button 
             data-id="add_placemark"
-            className="light" 
-            style={{marginLeft: '.5rem'}}
+            className="light"
+            id={classes.add_placemark}
             onClick={() => {
               if (user.isAuth) {
                 setFirstClick(true)
                 placemarkPreview().then((data) => {
-                  console.log(data.coordinates)
                   document.body.removeEventListener('touchend', data.touchListener || data.clickListener)
                   setAddPlacemarkVisible(true)
                 })

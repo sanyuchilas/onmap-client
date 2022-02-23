@@ -47,47 +47,32 @@ const Auth = observer(() => {
       if (event.target.className !== 'active')
         Array.from(document.querySelectorAll('input')).map(input => input.classList.remove('active'))
     }}>
-      <div style={{padding: 0}} className="header row">
+      <div id={classes.header} className="header row">
         <button 
           className="dark"
-          style={{width: '100%', maxWidth: '10rem', padding: '0.5rem', height: '75%'}}
+          id={classes.back}
           onClick={() => navigate(MAIN_ROUTE)}
         >
           Назад
         </button>
         <button 
           className="dark"
-          style={{width: '100%', 
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '0.5rem',
-                  maxWidth: '18rem', 
-                  height: '75%',
-                  marginLeft: 'auto'
-          }}
+          id={classes.support}
         >
           Поддержать автора
         </button>
       </div>
 
       <div id="animate_main_auth" className={classes.main + " main col"}>
-        <div className="col" style={{width: '100%'}}>
-          <div 
-            className='dark-gray-color'
-            style={{
-              fontSize: '2rem'
-            }}
-          >
+        <div className={classes.inputs + " col"}>
+          <div className='dark-gray-color' id={classes.title}>
             {pathname === '/login' ? 'Вход' : 'Регистрация'}
           </div>
           {!isLogin && 
             <input
               value = {name} 
               type="text"
-              style={{
-                marginBottom: '.3rem'
-              }} 
+              className={classes.input_mb}
               placeholder='Введите имя...'
               onChange={event => setName(event.target.value)}
               onClick = {event => {
@@ -97,7 +82,8 @@ const Auth = observer(() => {
           }
           <input
             value={email} 
-            type="text" 
+            type="text"
+            className={classes.input_mb}
             placeholder='Введите email...'
             onChange={event => setEmail(event.target.value)}
             onClick={event => {
@@ -108,30 +94,19 @@ const Auth = observer(() => {
             value={password}
             type="password" 
             placeholder='Введите пароль...'
-            style={{
-              marginTop: '0.3rem'
-            }}
             onChange={event => setPassword(event.target.value)}
             onClick={event => {
               changeActive(event)
             }}
           />
         </div>
-        <div
-          className="row light-gray-color"
-          style={{
-            width: '90%',
-            maxWidth: '30rem',
-            justifyContent: 'left',
-            fontSize: '1.2rem',
-          }}
-        >
+        <div className="row light-gray-color" id={classes.log_reg}>
           {isLogin
           ? <div>
               Нет аккаунта?
               <Link 
                 to={REGISTRATION_ROUTE} 
-                style={{marginLeft: '0.2rem'}} 
+                className={classes.account} 
                 onClick={() => {
                   document.getElementById('animate_main_auth').classList.add(classes.animate_auth)
                   setTimeout(() => document.getElementById('animate_main_auth').classList.remove(classes.animate_auth), 200)
@@ -144,7 +119,7 @@ const Auth = observer(() => {
               Есть аккаунт?
               <Link 
                 to={LOGIN_ROUTE} 
-                style={{marginLeft: '0.2rem'}} 
+                className={classes.account} 
                 onClick={() => {
                   document.getElementById('animate_main_auth').classList.add(classes.animate_auth)
                   setTimeout(() => document.getElementById('animate_main_auth').classList.remove(classes.animate_auth), 200)
@@ -154,25 +129,12 @@ const Auth = observer(() => {
               </Link>
             </div>} 
         </div>
-        <div
-          className="row"
-          style={{
-            width: '90%',
-            maxWidth: '30rem',
-            justifyContent: 'left',
-            marginTop: '.6rem'
-          }}
-        >
+        <div className="row" id={classes.btn_wrapper}>
           <button 
+            id={classes.log_reg_btn}
             className='light'
             onClick={() => {
               click()
-            }}
-            style={{
-              width: '100%',
-              padding: '.47rem',
-              height: '100%',
-              fontSize: '1.4rem'
             }}
           >
             {isLogin

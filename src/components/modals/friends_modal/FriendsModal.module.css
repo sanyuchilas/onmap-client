@@ -19,3 +19,42 @@
   width: 100%;
   margin-bottom: .5rem;
 }
+
+.header {
+  padding: 0 !important;
+}
+
+.back {
+  width: 100%;
+  max-width: 10rem;
+  padding: 0.5rem;
+  height: 75% !important;
+  margin-right: auto !important;
+}
+
+#user_id {
+  padding: 0 1.3rem;
+  white-space: nowrap;
+}
+
+.main {
+  align-items: stretch !important;
+}
+
+.row_input {
+  align-items: center;
+  margin-bottom: 0.3rem;
+  width: 100%;
+}
+
+#input {
+  margin: 0;
+  height: 3rem;
+}
+
+#add_friend {
+  height: 3rem;
+  margin: 0 auto 0 0.5rem;
+  font-size: 1.3rem;
+  white-space: nowrap;
+}

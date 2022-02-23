@@ -1,17 +1,12 @@
 import React from 'react';
+import classes from './RowSelectFriends.module.css'
 
 const RowSelectFriends = ({name, ...props}) => {
   return (
     <div {...props}>
       <button 
-        className='light'
+        className={classes.row + ' light'}
         onClick={event => event.target.classList.toggle('active')}
-        style={{
-          width: '100%',
-          padding: '.5rem',
-          height:  'auto',
-          fontSize: '1.2rem'
-        }}
       >
         {name}
       </button>

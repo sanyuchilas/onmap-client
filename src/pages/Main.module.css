@@ -1,9 +1,8 @@
 #options {
   justify-content: flex-start;
   overflow: auto;
-  z-index: 10;
-  width: 100%;
-  padding: 0.1rem 0; /* 0.43rem 0.5rem */
+  padding: 0.1rem 0;
+  margin-right: auto;
 }
 
 #options_auth {
@@ -29,6 +28,28 @@
   transition: all .1s ease-in-out;
 }
 
+.span_1 {
+  margin-bottom: -0.4rem;
+}
+
+.span_2 {
+  margin-right: 0.4rem;
+}
+
+.login_button {
+  margin-left: 0.15rem !important;
+}
+
+#logout_btn {
+  margin-left: .5rem;
+  margin-top: 0.1rem;
+}
+
+.select_type {
+  white-space: nowrap;
+  margin-right: .57rem;
+}
+
 #add_mark_preview:hover {
   cursor: pointer;
   opacity: .8;
@@ -39,4 +60,16 @@ body.touch #add_mark_preview:hover {
 
 #add_mark_preview:active {
   opacity: .9;
+}
+
+#add_placemark {
+  margin-left: 0.57rem;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  z-index: 10;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from './../../utils/constants';
+import classes from "./AlertModal.module.css"
 
 const AlertModal = ({show, onHide, name}) => {
   const navigate = useNavigate()
@@ -13,31 +14,15 @@ const AlertModal = ({show, onHide, name}) => {
       centered
     >
       <div className="container">
-        <div style={{padding: 0}} className="header row">
-          <button 
-            className="dark"
-            style={{width: '100%', padding: '0.5rem', height: '75%'}}
-            onClick={onHide}
-          >
+        <div className={classes.header + " header row"}>
+          <button className={classes.back + " dark"} onClick={onHide}>
             Назад
           </button>
         </div>
         <div className='main'>
-          <div 
-            className='col light-gray-background' 
-            style={{
-              borderRadius: '.417rem',
-              height: '100%',
-              textAlign: 'center',
-              padding: '.5rem',
-              fontSize: '1.3rem'
-            }}
-          >
+          <div id={classes.info} className='col light-gray-background'>
             {name}
-            <button 
-              className="dark"
-              style={{width: '100%', padding: '0.5rem', height: '75%', margin: 0, marginTop: '.5rem'}}
-              onClick={() => navigate(LOGIN_ROUTE)}
+            <button className={classes.login_btn + " dark"} onClick={() => navigate(LOGIN_ROUTE)}
             >
               Войти
             </button>

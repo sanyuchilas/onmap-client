@@ -29,6 +29,7 @@ const AddPlacemarkModal = ({show, onHide}) => {
     ], 
     title: 'Выберите иконку метки'
   }
+  
   return (
     <Modal
       show={show}
@@ -46,36 +47,18 @@ const AddPlacemarkModal = ({show, onHide}) => {
           >
             Назад
           </button>
-          {/* <button 
-            className="dark"
-            onClick={() => {
-              document.getElementById('add_placemark').classList.add(`${classes.animate}`)
-              setTimeout(() => {document.getElementById('add_placemark') && document.getElementById('add_placemark').classList.remove(`${classes.animate}`)}, 5000)
-            }}
-            style={{
-              width: '100%', 
-              // display: 'none',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0.5rem',
-              maxWidth: '17rem', 
-              height: '75%',
-            }}
-          >
-            <a href='#add_placemark' className='white-color'>Добавить метку</a>
-          </button> */}
         </div>
 
         <div className={classes.main + " main col"}>
 
           <div className={classes.col + " col"}>
-            <MySelect data={placmemrakSelect} style={{width: '100%', display: 'flex', flexDirection: 'column'}}/>
+            <MySelect data={placmemrakSelect} className={classes.select}/>
           </div>
 
           <div className={classes.col + " col"}>
-            <div className={classes.row_subtitle + " col"} style={{paddingBottom: '.8rem'}}>
+            <div className={classes.row_subtitle + " col"}>
               <span>Кртакое описание</span>
-              <span className='tr-white-color' style={{fontSize: '1.1rem', textAlign: 'center'}}>
+              <span className={classes.sub_subtitle + ' tr-white-color'}>
                 (появляется после клика на метке)
               </span>
             </div>
@@ -93,9 +76,9 @@ const AddPlacemarkModal = ({show, onHide}) => {
           </div>
           
           <div className={classes.col + " col"}>
-            <div className={classes.row_subtitle + " col"} style={{paddingBottom: '.8rem'}}>
+            <div className={classes.row_subtitle + " col"}>
               <span>Полное описание</span>
-              <span className='tr-white-color' style={{fontSize: '1.1rem', textAlign: 'center'}}>
+              <span className={classes.sub_subtitle + ' tr-white-color'}>
                 (появляется после двойного клика на метке)
               </span>
             </div>
@@ -109,25 +92,23 @@ const AddPlacemarkModal = ({show, onHide}) => {
                 }}
               ></textarea>
             </div>
-            <div className={classes.row_content + " row"} style={{height: 'auto'}}>
-              <MyFileInput style={{width: '100%'}}/>
+            <div className={classes.row_content + " row"}>
+              <MyFileInput className={classes.file_input}/>
             </div>
           </div>
 
           <div className={classes.col + " col"}>
-            <div className={classes.row_subtitle + " row"} style={{textAlign: 'center'}}>
+            <div className={classes.row_subtitle + " row"}>
               Выберите друзей, которые смогут видеть вашу метку
             </div>
             <RowSelectFriends className={classes.row_content + ' row'} name={'sanyuchilas'}/>
             <RowSelectFriends className={classes.row_content + ' row'} name={'kolyanchik'}/>
           </div>
 
-          <div className={classes.col + " col"} style={{justifyContent: 'flex-end',
-          flexGrow: 0}}>
+          <div className={classes.col + " col"} id={classes.col_end}>
             <button 
-              className='dark' 
+              className={classes.add_placemark + ' dark'}
               id="add_placemark" 
-              style={{margin: '0', padding: '.5rem', height: 'auto', width: '100%', marginBottom: '.15rem'}}
               onClick={onHide}
             >
               Добавить метку

@@ -16,17 +16,13 @@ const FriendsModal = ({show, onHide}) => {
         if (event.target.className !== 'active')
           Array.from(document.querySelectorAll('input')).map(input => input.classList.remove('active'))
       }}>
-        <div style={{padding: 0}} className="header row">
-          <button 
-            className="dark"
-            style={{width: '100%', maxWidth: '10rem', padding: '0.5rem', height: '75%', marginRight: 'auto'}}
-            onClick={onHide}
-          >
+        <div className={classes.header + " header row"}>
+          <button className={classes.back + " dark"} onClick={onHide}>
             Назад
           </button>
-          <span style={{padding: '0 1.3rem', whiteSpace: 'nowrap'}}>Ваш ID - 1</span>
+          <span id={classes.user_id}>Ваш ID - 1</span>
         </div>
-        <div className='main' style={{display: 'flex', flexDirection: 'column'}}>
+        <div className={classes.main + ' main col'}>
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Ваши друзья</div>
             <RowYourFriends className={classes.row_content + ' row'} name={'sanyuchilas'}/>
@@ -40,19 +36,16 @@ const FriendsModal = ({show, onHide}) => {
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Добавить в друзья</div>
             <RowAddFriends className={classes.row_content + ' row'} name={'valera'}/>
-            <div className="row" style={{alignItems: 'center', marginBottom: '.3rem', width: '100%'}}>
+            <div className={classes.row_input + " row"}>
               <input 
                 type="text" 
-                placeholder='Введите ID...'
-                style={{margin: 0, height: '3rem'}}
+                placeholder='ID друга...'
+                id={classes.input}
                 onClick={event => {
                   event.target.classList.add('active')}
                 }
               />
-              <button 
-                className='dark' 
-                style={{height: '3rem', whiteSpace: 'nowrap', margin: '0 auto 0 .5rem', fontSize: '1.3rem'}}
-              >Добавить друга</button>
+              <button id={classes.add_friend} className='dark'>Добавить друга</button>
             </div>
           </div>
         </div>
