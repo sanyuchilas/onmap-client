@@ -29,7 +29,6 @@ const Auth = observer(() => {
       let data
       if (isLogin) {
         data = await login(email, password)
-        console.log(data)
         navigate(MAIN_ROUTE)
       } else {
         data = await registration(null, email, name, password)

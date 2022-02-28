@@ -157,7 +157,6 @@ const Main = observer(() => {
                 placemarkPreview().then((data) => {
                   document.body.removeEventListener('touchend', data.touchListener)
                   document.body.removeEventListener('click', data.clickListener)
-                  console.log(data.coordinates)
                   setAddPlacemarkVisible(true)
                 })
               } else {
@@ -170,7 +169,7 @@ const Main = observer(() => {
           </button>
         </div>
       </div>
-      <img id={classes.add_mark_preview} src={placemark_preview}/>
+      <img data-id="add_placemark_preview" id={classes.add_mark_preview} src={placemark_preview}/>
 
       <Map/>
       <AlertModal show={alertVisible} onHide={() => setAlertVisible(false)} name={alertName}/>

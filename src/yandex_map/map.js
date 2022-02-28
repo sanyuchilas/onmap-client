@@ -92,6 +92,12 @@ export function startYandexMap(navigate, center, zoom) {
     })
 
   let addPlacmeMarkBtn = document.querySelector('button[data-id="add_placemark"]')
+  let placemarkIconPreview = document.querySelector('img[data-id="add_placemark_preview"]')
+  
+  placemarkIconPreview.addEventListener('touchend', () => {
+    global.mapZoom = map.getZoom()
+    global.mapCenter = map.getCenter()
+  })
 
   addPlacmeMarkBtn.addEventListener('click', () => {
     global.clickCoords = false

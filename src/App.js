@@ -2,7 +2,7 @@ import AppRouter from './components/AppRouter';
 import { check } from './http/userAPI';
 import { Context } from './index';
 import React, { useContext, useEffect, useState } from 'react'
-import {BrowserRouter} from 'react-router-dom'
+import {HashRouter} from 'react-router-dom'
 
 function App() {
   const {user} = useContext(Context)
@@ -19,9 +19,9 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppRouter/>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
