@@ -94,9 +94,15 @@ export function startYandexMap(navigate, center, zoom) {
   let addPlacmeMarkBtn = document.querySelector('button[data-id="add_placemark"]')
 
   addPlacmeMarkBtn.addEventListener('click', () => {
+    global.clickCoords = false
     map.setCenter(map.getCenter())
     global.mapZoom = map.getZoom()
     global.mapCenter = map.getCenter()
+    let clickCoords = event => {
+      global.clickCoords = event.get('coords')
+      map.events.remove('click', clickCoords)
+    }
+    map.events.add('click', clickCoords)
   })
 
     // global.mapCenter = map.getCenter()

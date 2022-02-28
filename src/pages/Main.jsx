@@ -46,11 +46,20 @@ const Main = observer(() => {
           document.body.addEventListener('touchend', touchListener)
 
         } else {
+          document.body.onmousemove = event => {
+            addMarkPreview.style.top = event.clientY - 4 + 'px'
+            addMarkPreview.style.left = event.clientX + 'px'
+          }
           let clickListener = event => {
-            if (event.target.id === classes.add_mark_preview) {
+            // if (event.target.id === classes.add_mark_preview) {
+            //   addMarkPreview.style.display = 'none'
+            //   setFirstClick(false)
+            //   res({clickListener, coordinates: global.mapCenter})
+            // }
+            if (global.clickCoords) {
               addMarkPreview.style.display = 'none'
               setFirstClick(false)
-              res({clickListener, coordinates: global.mapCenter})
+              res({clickListener, coordinates: global.clickCoords})
             }
           }
 
@@ -146,7 +155,9 @@ const Main = observer(() => {
               if (user.isAuth) {
                 setFirstClick(true)
                 placemarkPreview().then((data) => {
-                  document.body.removeEventListener('touchend', data.touchListener || data.clickListener)
+                  document.body.removeEventListener('touchend', data.touchListener)
+                  document.body.removeEventListener('click', data.clickListener)
+                  console.log(data.coordinates)
                   setAddPlacemarkVisible(true)
                 })
               } else {
@@ -155,7 +166,7 @@ const Main = observer(() => {
               }
             }}
           >
-            {window.innerWidth < 207 ? 'Метка' : 'Добавить метку'}
+            Добавить метку
           </button>
         </div>
       </div>
