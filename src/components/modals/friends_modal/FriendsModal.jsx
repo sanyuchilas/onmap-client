@@ -4,8 +4,15 @@ import classes from './FriendsModal.module.css'
 import RowRequestFriends from './RowRequestFriends';
 import RowYourFriends from './RowYourFriends';
 import RowAddFriends from './RowAddFriends';
+import { observer } from 'mobx-react-lite';
+import { useContext } from 'react';
+import { Context } from './../../../index.js';
 
-const FriendsModal = ({show, onHide}) => {
+const FriendsModal = observer(({show, onHide}) => {
+  const {user} = useContext(Context)
+  let friends = user.user.friends || []
+  let comrades = user.user.comradeId || []
+  let addFriends = user.user.addFriends || []
   return (
     <Modal
       show={show}
@@ -25,17 +32,21 @@ const FriendsModal = ({show, onHide}) => {
         <div className={classes.main + ' main col'}>
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Ваши друзья</div>
-            <RowYourFriends className={classes.row_content + ' row'} name={'sanyuchilas'}/>
-            <RowYourFriends className={classes.row_content + ' row'} name={'kolyanchik'}/>
+            {friends.map((id) => 
+              <RowYourFriends key={id} className={classes.row_content + ' row'} name={id}/>
+            )}
           </div>
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Запросы в друзья</div>
-            <RowRequestFriends className={classes.row_content + ' row'} name={'losharik'}/>
-            <RowRequestFriends className={classes.row_content + ' row'} name={'krutoichelik'}/>
+            {comrades.map((id) => 
+              <RowRequestFriends key={id} className={classes.row_content + ' row'} name={id}/>
+            )}
           </div>
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Добавить в друзья</div>
-            <RowAddFriends className={classes.row_content + ' row'} name={'valera'}/>
+            {addFriends.map((id) => 
+              <RowAddFriends key={id} className={classes.row_content + ' row'} name={id}/>
+            )}
             <div className={classes.row_input + " row"}>
               <input 
                 type="text" 
@@ -52,6 +63,6 @@ const FriendsModal = ({show, onHide}) => {
       </div>
     </Modal>
   );
-};
+});
 
 export default FriendsModal;

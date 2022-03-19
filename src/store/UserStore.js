@@ -3,7 +3,11 @@ const { makeAutoObservable } = require("mobx")
 class UserStore {
   constructor() {
     this._isAuth = false
-    this._user = {}
+    this._user = {
+      friends: [],
+      comradeId: [],
+      addFriends: []
+    }
     makeAutoObservable(this)
   }
 

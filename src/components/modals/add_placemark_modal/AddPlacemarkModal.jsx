@@ -57,7 +57,7 @@ const AddPlacemarkModal = ({show, onHide}) => {
 
           <div className={classes.col + " col"}>
             <div className={classes.row_subtitle + " col"}>
-              <span>Кртакое описание</span>
+              <span>Краткое описание</span>
               <span className={classes.sub_subtitle + ' tr-white-color'}>
                 (появляется после клика на метке)
               </span>

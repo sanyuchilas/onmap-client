@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from './../utils/constants';
-import { login, registration } from './../http/userAPI';
+import { fetchComradesAndAddFriends, login, registration } from './../http/userAPI';
 import classes from './Auth.module.css'
 
 const Auth = observer(() => {
@@ -34,7 +34,12 @@ const Auth = observer(() => {
         data = await registration(null, email, name, password)
         navigate(LOGIN_ROUTE)
       }
-      user.setUser(data)
+      fetchComradesAndAddFriends(data.id).then(info => {
+        data.comradeId = info.comradeId
+        data.addFriends = info.friendId
+        data.friends = JSON.parse(data.friends)
+        user.setUser(data)
+      })
       user.setIsAuth(true)
     } catch (e) {
       alert(e.response.data.message)
@@ -43,7 +48,7 @@ const Auth = observer(() => {
   
   return (
     <div className='container' onClick={event => {
-      if (event.target.className !== 'active')
+      if (!event.target.classList.contains('active'))
         Array.from(document.querySelectorAll('input')).map(input => input.classList.remove('active'))
     }}>
       <div id={classes.header} className="header row">
