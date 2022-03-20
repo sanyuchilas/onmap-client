@@ -19,11 +19,12 @@ export const check = async () => {
   return jwt_decode(data.token)
 }
 
-export const fetchComradesAndAddFriends = async (id) => {
-  const {data} = await $authHost.post('api/user/comradesAndAddFriends', {id})
+export const fetchFriends = async (id) => {
+  const {data} = await $authHost.post('api/user/getFriends', {id})
   return data
 }
 
-export const friends = async (id ,friendId) => {
-  const {data} = await $authHost.put('api/user/comradesAndAddFriends', {id})
+export const putFriends = async (id, friends, event) => {
+  const {data} = await $authHost.put('api/user/putFriends', {id, friends, event})
+  return data
 }

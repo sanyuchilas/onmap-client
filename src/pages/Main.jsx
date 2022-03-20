@@ -123,7 +123,7 @@ const Main = observer(() => {
               className="light"
               id={classes.logout_btn}
               onClick = {() => {
-                user.setIsAuth(false)
+                user.isAuth = false
                 localStorage.removeItem('token')
               }}
               style={{

@@ -1,5 +1,5 @@
 import AppRouter from './components/AppRouter';
-import { check, fetchComradesAndAddFriends } from './http/userAPI';
+import { check, fetchFriends } from './http/userAPI';
 import { Context } from './index';
 import React, { useContext, useEffect, useState } from 'react'
 import {HashRouter} from 'react-router-dom'
@@ -10,12 +10,16 @@ function App() {
 
   useEffect(() => {
     check().then(data => {
-      user.setIsAuth(true)
-      fetchComradesAndAddFriends(data.id).then(info => {
-        data.comradeId = info.comradeId
-        data.addFriends = info.friendId
-        data.friends = JSON.parse(data.friends)
-        user.setUser(data)
+      user.isAuth = true
+      fetchFriends(data.id).then(info => {
+        user.comrades = info.comrades
+        user.addFriends = info.addFriends
+        user.friends = info.friends
+        user.id = data.id
+        user.email = data.email
+        user.name = data.name
+        user.role = data.role
+        user.avatar = data.avatar
       })
     }).finally(() => setLoading(false))
   }, [])

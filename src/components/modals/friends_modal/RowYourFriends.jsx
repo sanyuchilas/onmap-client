@@ -1,21 +1,43 @@
-import React from 'react';
+import { putFriends } from './../../../http/userAPI';
+import React, { useContext } from 'react';
 import classes from './RowsFriends.module.css'
+import { observer } from 'mobx-react-lite';
+import { Context } from './../../../index';
 
-const RowYourFriends = ({name, ...props}) => {
+const RowYourFriends = observer(({name, id, ...props}) => {
+
+  const {user} = useContext(Context)
+
+  const remove = () => {
+    let friends = {}
+
+    user.friends = user.friends.filter(friendId => friendId !== id)
+
+    friends.friends = user.friends
+    friends.newFriendId = id
+
+    putFriends(user.id, friends, 'delete').then(data => {
+      console.log(data.message)
+    })
+  }
+
   return (
     <div {...props}>
       <div className={classes.wrapper + ' row light-gray-background'}>
         <span className={classes.user_name}>{name}</span>
-        <button className={classes.btn + ' dark'}>Удалить</button>
+        <button
+          className={classes.btn + ' dark'}
+          onClick={remove}
+        >Удалить</button>
       </div>
       <button 
         className={classes.placemarks + ' light'} 
-        onClick={evetn => evetn.target.classList.toggle('active')}
+        onClick={event => event.target.classList.toggle('active')}
       >
         Метки
       </button>
     </div>
   );
-};
+});
 
 export default RowYourFriends;

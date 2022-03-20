@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from './../utils/constants';
-import { fetchComradesAndAddFriends, login, registration } from './../http/userAPI';
+import { fetchFriends, login, registration } from './../http/userAPI';
 import classes from './Auth.module.css'
 
 const Auth = observer(() => {
@@ -34,13 +34,17 @@ const Auth = observer(() => {
         data = await registration(null, email, name, password)
         navigate(LOGIN_ROUTE)
       }
-      fetchComradesAndAddFriends(data.id).then(info => {
-        data.comradeId = info.comradeId
-        data.addFriends = info.friendId
-        data.friends = JSON.parse(data.friends)
-        user.setUser(data)
+      fetchFriends(data.id).then(info => {
+        user.comrades = info.comrades
+        user.addFriends = info.addFriends
+        user.friends = info.friends
+        user.id = data.id
+        user.email = data.email
+        user.name = data.name
+        user.role = data.role
+        user.avatar = data.avatar
       })
-      user.setIsAuth(true)
+      user.isAuth = true
     } catch (e) {
       alert(e.response.data.message)
     }
