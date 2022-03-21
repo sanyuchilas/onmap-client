@@ -2,37 +2,42 @@ import React, { useContext } from 'react';
 import { Context } from './../../../index';
 import classes from './RowsFriends.module.css'
 import { putFriends } from './../../../http/userAPI';
+import { observer } from 'mobx-react-lite';
 
-const RowRequestFriends = ({name, id, ...props}) => {
+const RowRequestFriends = observer(({name, id, ...props}) => {
   const {user} = useContext(Context)
 
   const accept = () => {
     let friends = {}
             
-    user.friends = [id].concat(user.friends)
+    user.friends = [{id, name}].concat(user.friends)
 
-    friends.comrades = user.comrades.filter(friendId => friendId !== id)
+    friends.comrades = user.comrades.filter(friend => friend.id !== id)
     friends.friends = user.friends
     friends.newFriendId = id
 
     user.comrades = friends.comrades
 
-    putFriends(user.id, friends, 'accept').then(data => {
+    putFriends({id: user.id, name: user.name}, friends, 'accept').then(data => {
       console.log(data.message)
     })
+
+    if (user.id === id) alert('Сам свой запрос не примешь - никто не примет!')
   }
 
   const decline = () => {
     let friends = {}
 
-    user.comrades = user.comrades.filter(friendId => friendId !== id)
+    user.comrades = user.comrades.filter(friend => friend.id !== id)
 
     friends.comrades = user.comrades
     friends.newFriendId = id
 
-    putFriends(user.id, friends, 'decline').then(data => {
+    putFriends({id: user.id, name: user.name}, friends, 'decline').then(data => {
       console.log(data.message)
     })
+
+    if (user.id === id) alert('Сам свой запрос не отклонишь - никто не отклонит!')
   }
 
   return (
@@ -50,6 +55,6 @@ const RowRequestFriends = ({name, id, ...props}) => {
       </div>
     </div>
   );
-};
+});
 
 export default RowRequestFriends;

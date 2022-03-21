@@ -11,14 +11,16 @@ const RowYourFriends = observer(({name, id, ...props}) => {
   const remove = () => {
     let friends = {}
 
-    user.friends = user.friends.filter(friendId => friendId !== id)
+    user.friends = user.friends.filter(friend => friend.id !== id)
 
     friends.friends = user.friends
     friends.newFriendId = id
 
-    putFriends(user.id, friends, 'delete').then(data => {
+    putFriends({id: user.id, name: user.name}, friends, 'delete').then(data => {
       console.log(data.message)
     })
+
+    if (user.id === id) alert('Перестать быть своим другом - тоже очень важный шаг в жизни!')
   }
 
   return (

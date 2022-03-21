@@ -7,7 +7,7 @@ import RowAddFriends from './RowAddFriends';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Context } from './../../../index.js';
-import { putFriends } from './../../../http/userAPI';
+import { fetchOne, putFriends } from './../../../http/userAPI';
 
 const FriendsModal = observer(({show, onHide}) => {
   const {user} = useContext(Context)
@@ -15,6 +15,28 @@ const FriendsModal = observer(({show, onHide}) => {
   let friends = user.friends || []
   let comrades = user.comrades || []
   let addFriends = user.addFriends || []
+
+  const addFriend = async () => {
+    try {
+      let friends = {}
+      let friendId = Number(newFriendId)
+      
+      const {name} = await fetchOne(friendId)
+
+      user.addFriends = [{id: friendId, name}].concat(user.addFriends)
+
+      friends.addFriends = user.addFriends
+      friends.newFriendId = friendId
+
+      putFriends({id: user.id, name: user.name}, friends, 'addFriend').then(data => console.log(data.message))
+      setNewFriendId('')
+
+      if (user.id === friendId) alert('Стать своим другом - очень важный шаг в жизни любого человека!')
+      
+    } catch(e) {
+      alert(e.response.data.message)
+    }
+  }
 
   let [newFriendId, setNewFriendId] = useState('')
 
@@ -37,20 +59,20 @@ const FriendsModal = observer(({show, onHide}) => {
         <div className={classes.main + ' main col'}>
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Ваши друзья</div>
-            {friends.map((id) => 
-              <RowYourFriends key={id} id={id} className={classes.row_content + ' row'} name={id}/>
+            {friends.map(({id, name}) => 
+              <RowYourFriends key={id} id={id} className={classes.row_content + ' row'} name={name}/>
             )}
           </div>
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Запросы в друзья</div>
-            {comrades.map((id) => 
-              <RowRequestFriends key={id} id={id} className={classes.row_content + ' row'} name={id}/>
+            {comrades.map(({id, name}) => 
+              <RowRequestFriends key={id} id={id} className={classes.row_content + ' row'} name={name}/>
             )}
           </div>
           <div className={classes.col + ' col'}>
             <div className={classes.row_subtitle + " row"}>Добавить в друзья</div>
-            {addFriends.map((id) => 
-              <RowAddFriends key={id} id={id} className={classes.row_content + ' row'} name={id}/>
+            {addFriends.map(({id, name}) => 
+              <RowAddFriends key={id} id={id} className={classes.row_content + ' row'} name={name}/>
             )}
             <div className={classes.row_input + " row"}>
               <input 
@@ -68,15 +90,7 @@ const FriendsModal = observer(({show, onHide}) => {
               <button 
                 id={classes.add_friend} 
                 className='dark'
-                onClick={() => {
-                  let friends = {}
-                  let friendId = Number(newFriendId)
-                  user.addFriends = [friendId].concat(user.addFriends)
-                  friends.friends = user.addFriends
-                  friends.newFriendId = friendId
-                  putFriends(user.id, friends, 'addFriend').then(data => console.log(data.message))
-                  setNewFriendId('')
-                }}
+                onClick={addFriend}
               >Добавить друга</button>
             </div>
           </div>

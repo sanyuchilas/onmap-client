@@ -11,12 +11,14 @@ const RowAddFriends = observer(({name, id, ...props}) => {
   const cancel = () => {
     let friends = {}
 
-    user.addFriends = user.addFriends.filter(friendId => friendId !== id)
+    user.addFriends = user.addFriends.filter(friend => friend.id !== id)
 
     friends.addFriends = user.addFriends
     friends.newFriendId = id
 
-    putFriends(user.id, friends, 'cancel').then(data => console.log(data.message))
+    putFriends({id: user.id, name: user.name}, friends, 'cancel').then(data => console.log(data.message))
+
+    if (user.id === id) alert('Сам свой запрос не отменишь - никто не отменит!')
   }
 
   return (
