@@ -65,11 +65,12 @@ function addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic) {
 
   placemarksPucblic.map(data => {
 
-    let placemark = new ymaps.Placemark(data.coordinates, {}, {
+    let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
       iconLayout: createChipsLayout(calculateSizePublic, ymaps, data.icon)
     })
-    placemark.events.add('dblclick', event => {
-      navigate(PLACEMARK_ROUTE + '/' + data.id)
+    placemark.events.add('click', event => {
+      // navigate(PLACEMARK_ROUTE + '/' + data.id)
+      window.open(data.model, '_blank')
     }).add('mouseenter', () => {
       console.log('hover')
     }).add('mouseleave', () => {
@@ -83,7 +84,7 @@ function addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic) {
     let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
       iconLayout: createChipsLayout(calculateSize, ymaps, data.icon)
     })
-    placemark.events.add('dblclick', event => {
+    placemark.events.add('click', event => {
       navigate(PLACEMARK_ROUTE + '/' + data.id)
     }).add('mouseenter', () => {
       console.log('hover')

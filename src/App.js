@@ -3,7 +3,7 @@ import { check, fetchFriends } from './http/userAPI';
 import { Context } from './index';
 import React, { useContext, useEffect, useState } from 'react'
 import {HashRouter} from 'react-router-dom'
-import { getAllPrivate } from './http/placemarkAPI';
+import { getAllPrivate, getAllPublic } from './http/placemarkAPI';
 
 function App() {
   const {user} = useContext(Context)
@@ -11,8 +11,12 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    
+    getAllPublic().then(info => {
+      map.placemarksPublic = info
+    })
+    
     check().then(data => {
-      console.log(data.id)
       user.isAuth = true
       fetchFriends(data.id).then(info => {
         user.comrades = info.comrades
@@ -27,6 +31,7 @@ function App() {
       getAllPrivate(data.id).then(info => {
         map.placemarks = info
       })
+  
     }).finally(() => setLoading(false))
   }, [])
 

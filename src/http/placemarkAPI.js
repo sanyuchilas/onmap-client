@@ -12,3 +12,9 @@ export const getAllPrivate = async (userId) => {
 
   return data
 }
+
+export const getAllPublic = async () => {
+  const {data} = await $authHost.get('/api/placemark/getAllPublic')
+
+  return data
+}

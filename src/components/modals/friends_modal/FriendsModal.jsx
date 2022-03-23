@@ -20,6 +20,10 @@ const FriendsModal = observer(({show, onHide}) => {
     try {
       let friends = {}
       let friendId = Number(newFriendId)
+
+      if (user.friends.find(friend => friend.id === friendId)) {
+        throw 'Данный пользователь уже ваш друг!'
+      }
       
       const {name} = await fetchOne(friendId)
 
@@ -34,7 +38,8 @@ const FriendsModal = observer(({show, onHide}) => {
       if (user.id === friendId) alert('Стать своим другом - очень важный шаг в жизни любого человека!')
       
     } catch(e) {
-      alert(e.response.data.message)
+      setNewFriendId('')
+      !e.response ? alert(e) : alert(e.response.data.message)
     }
   }
 

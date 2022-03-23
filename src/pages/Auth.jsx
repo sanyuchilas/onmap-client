@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from './../utils/constants';
 import { fetchFriends, login, registration } from './../http/userAPI';
 import classes from './Auth.module.css'
-import { getAllPrivate } from './../http/placemarkAPI';
+import { getAllPrivate, getAllPublic } from './../http/placemarkAPI';
 
 const Auth = observer(() => {
   const {user} = useContext(Context)

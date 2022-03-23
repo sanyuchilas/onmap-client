@@ -12,17 +12,14 @@ const Map = observer(() => {
 
   //Подключаем яндекс API
   let placemarks = map.placemarks
-  let placemarksPublic = [{
-    id: 1,
-    coordinates: [51.17885736098834,-1.8261605410343302]
-  }]
+  let placemarksPublic = map.placemarksPublic
   
   // useEffect(() => {
     ymaps.ready(() => startYandexMap(ymaps, navigate, global.mapCenter || [55.42449385862713,38.00976220345276], global.mapZoom || 4, placemarks, placemarksPublic))
   // }, [])
 
   // if (global.myMap) {
-  //   console.log('rerender')
+  //   console.log('asda')
   //   addPlacemarks(ymaps, navigate, placemarks, placemarksPublic)
   // }
 

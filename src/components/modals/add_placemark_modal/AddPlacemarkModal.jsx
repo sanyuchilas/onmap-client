@@ -19,14 +19,14 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
   const [files, setFiles] = useState('')
 
   const addPlacemark = async () => {
+    
+    onHide()
+
     let placemark = await createOne(global.clickCoords || global.mapCenter, icon, short_description, full_description, files, user.id)
     
     map.placemarks = [placemark].concat(map.placemarks)
-    console.log(placemark)
     global.mapCenter = global.myMap.getCenter()
     global.mapZoom = global.myMap.getZoom()
-
-    onHide()
   }
 
   let placmemrakSelect = {

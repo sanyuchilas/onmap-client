@@ -66,6 +66,41 @@ const Main = observer(() => {
     }
   }
 
+  let friendsClick = () => {
+    if (user.isAuth) {
+      setFriendsVisible(true)
+    } else {
+      setAlertName('Для доступа к друзьям необходимо войти в аккаунт')
+      setAlertVisible(true)
+    }
+  }
+
+  let addPlacemarkClick = () => {
+    if (user.isAuth) {
+      setFirstClick(true)
+      placemarkPreview().then((data) => {
+        document.body.removeEventListener('touchend', data.touchListener)
+        document.body.removeEventListener('click', data.clickListener)
+        setAddPlacemarkVisible(true)
+      })
+    } else {
+      setAlertName('Для добавления метки необходимо войти в аккаунт')
+      setAlertVisible(true)
+    }
+  }
+
+  let setOptionActive = (event) => {
+    event.target.classList.toggle('active')
+  }
+
+  let logoutClick = () => {
+    user.isAuth = false
+    map.placemarks = []
+    localStorage.removeItem('token')
+  }
+
+  let logoutStyle = {display: user.isAuth ? 'block' : 'none'}
+
   return (
     <div className="container">
     
@@ -99,18 +134,14 @@ const Main = observer(() => {
             <button 
               id="sight" 
               className={classes.select_type + " light"} 
-              onClick={(event) => {
-                event.target.classList.toggle('active')
-              }}
+              onClick={setOptionActive}
             >
               Достопримечательности
             </button>
             <button 
               id="hotels" 
               className={"light"}
-              onClick={(event) => {
-                event.target.classList.toggle('active')
-              }}
+              onClick={setOptionActive}
             >
               Гостиницы
             </button>
@@ -118,13 +149,8 @@ const Main = observer(() => {
           <button 
               className="light"
               id={classes.logout_btn}
-              onClick = {() => {
-                user.isAuth = false
-                localStorage.removeItem('token')
-              }}
-              style={{
-                display: user.isAuth ? 'block' : 'none'
-            }}
+              onClick = {logoutClick}
+              style={logoutStyle}
             >
                 Выйти
           </button>
@@ -132,14 +158,7 @@ const Main = observer(() => {
         <div id={classes.options_auth} className="row" onWheel={() => horizontallScroll(classes.options_auth)}>
           <button 
             className="light"
-            onClick={() => {
-              if (user.isAuth) {
-                setFriendsVisible(true)
-              } else {
-                setAlertName('Для доступа к друзьям необходимо войти в аккаунт')
-                setAlertVisible(true)
-              }
-            }}
+            onClick={friendsClick}
           >
             Друзья
           </button>
@@ -147,19 +166,7 @@ const Main = observer(() => {
             data-id="add_placemark"
             className="light"
             id={classes.add_placemark}
-            onClick={() => {
-              if (user.isAuth) {
-                setFirstClick(true)
-                placemarkPreview().then((data) => {
-                  document.body.removeEventListener('touchend', data.touchListener)
-                  document.body.removeEventListener('click', data.clickListener)
-                  setAddPlacemarkVisible(true)
-                })
-              } else {
-                setAlertName('Для добавления метки необходимо войти в аккаунт')
-                setAlertVisible(true)
-              }
-            }}
+            onClick={addPlacemarkClick}
           >
             Добавить метку
           </button>
