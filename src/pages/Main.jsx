@@ -20,6 +20,7 @@ const Main = observer(() => {
   const [firstClick, setFirstClick] = useState(false)
 
   const {user} = useContext(Context)
+  const {map} = useContext(Context)
 
   let navigate = useNavigate()
   
@@ -51,11 +52,6 @@ const Main = observer(() => {
             addMarkPreview.style.left = event.clientX + 'px'
           }
           let clickListener = event => {
-            // if (event.target.id === classes.add_mark_preview) {
-            //   addMarkPreview.style.display = 'none'
-            //   setFirstClick(false)
-            //   res({clickListener, coordinates: global.mapCenter})
-            // }
             if (global.clickCoords) {
               addMarkPreview.style.display = 'none'
               setFirstClick(false)

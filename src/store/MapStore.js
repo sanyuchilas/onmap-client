@@ -1,25 +1,18 @@
-import { makeAutoObservable } from "mobx"
+const { makeAutoObservable } = require("mobx")
 
-export default class MapStore {
+class MapStore {
   constructor() {
-    this._center = [55.42449385862713,38.00976220345276]
-    this._zoom = 4
+    this._placemarks = []
     makeAutoObservable(this)
   }
 
-  setCenter(arr) {
-    this._center = arr
+  set placemarks(placemarks) {
+    this._placemarks = placemarks
   }
 
-  setZoom(zoom) {
-    this._zoom = zoom
-  }
-
-  get center() {
-    return this._center
-  }
-
-  get zoom() {
-    return this._zoom
+  get placemarks() {
+    return this._placemarks
   }
 }
+
+export default MapStore

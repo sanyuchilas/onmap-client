@@ -3,6 +3,7 @@
   overflow: auto;
   padding: 0.1rem 0;
   margin-right: auto;
+  z-index: 10;
 }
 
 #options_auth {
@@ -43,6 +44,7 @@
 #logout_btn {
   margin-left: .5rem;
   margin-top: 0.1rem;
+  z-index: 10;
 }
 
 .select_type {
@@ -71,5 +73,4 @@ body.touch #add_mark_preview:hover {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  z-index: 10;
 }

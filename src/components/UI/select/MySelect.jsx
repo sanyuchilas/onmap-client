@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './MySelect.module.css'
 import ReactDOMServer from 'react-dom/server'
 
-const MySelect = ({data, ...props}) => {
+const MySelect = ({data, setIcon, ...props}) => {
   return (
     <div {...props}>
       <button 
@@ -23,6 +23,7 @@ const MySelect = ({data, ...props}) => {
             className={classes.child + ' light'}
             onClick={() => {
               document.getElementsByClassName(classes.selected_child)[0].innerHTML = ReactDOMServer.renderToString(child.content)
+              setIcon(child.content.props.src)
               document.querySelector('#' + classes.select_button).classList.add(classes.active)
               document.getElementsByClassName(classes.childs)[0].classList.remove(classes.open)
             }}
