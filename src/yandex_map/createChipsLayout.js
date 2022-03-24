@@ -1,7 +1,7 @@
 let createChipsLayout = function (calculateSize, ymaps, icon) {
   // Создадим макет метки.
   let Chips = ymaps.templateLayoutFactory.createClass(
-    `<div class="placemark" style="background: url(${icon || 'https://clck.ru/eJxG6'}) no-repeat; background-size: cover; border-radius: 50%;"></div>`,
+    `<div class="placemark" style="background: url(${icon || 'https://st2.depositphotos.com/2659027/5664/v/950/depositphotos_56640799-stock-illustration-map-pin-location-mark-icon.jpg'}) no-repeat; background-size: cover; border-radius: 50%;"></div>`,
     {
       build: function () {
         Chips.superclass.build.call(this)

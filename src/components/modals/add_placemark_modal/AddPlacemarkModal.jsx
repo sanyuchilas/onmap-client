@@ -14,19 +14,20 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
   const {user} = useContext(Context)
   const {map} = useContext(Context)
   const [icon, setIcon] = useState(null)
-  const [short_description, setShrot_description] = useState('')
-  const [full_description, setFull_description] = useState('')
+  const [shortDescription, setShortDescription] = useState('')
+  const [fullDescription, setFullDescription] = useState('')
   const [files, setFiles] = useState('')
 
   const addPlacemark = async () => {
     
     onHide()
 
-    let placemark = await createOne(global.clickCoords || global.mapCenter, icon, short_description, full_description, files, user.id)
+    let placemark = await createOne(global.clickCoords || global.mapCenter, icon, shortDescription, fullDescription, files, user.id)
     
     map.placemarks = [placemark].concat(map.placemarks)
     global.mapCenter = global.myMap.getCenter()
     global.mapZoom = global.myMap.getZoom()
+    setIcon(null)
   }
 
   let placmemrakSelect = {
@@ -85,8 +86,8 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
                 id='short_area' 
                 maxLength={75} 
                 placeholder='Краткое описание...'
-                value={short_description}
-                onChange={event => setShrot_description(event.target.value)}
+                value={shortDescription}
+                onChange={event => setShortDescription(event.target.value)}
                 onClick={event => {
                   event.target.classList.add('active')
                   document.getElementById('long_area').classList.remove('active')
@@ -106,8 +107,8 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
               <textarea
                 id='long_area'
                 placeholder='Полное описание...'
-                value={full_description}
-                onChange={event => setFull_description(event.target.value)}
+                value={fullDescription}
+                onChange={event => setFullDescription(event.target.value)}
                 onClick={event => {
                   event.target.classList.add('active')
                   document.getElementById('short_area').classList.remove('active')
