@@ -9,7 +9,7 @@ function addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic) {
   }
 
   let calculateSizePublic = (zoom) => {
-    return Math.min(Math.pow(zoom, 2) * 0.45 - 1, 50)
+    return Math.min(Math.pow(zoom, 2) * 0.45, 50)
   }
 
   let addPlacmeMarkBtn = document.querySelector('button[data-id="add_placemark"]')

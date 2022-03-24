@@ -18,12 +18,17 @@ const FriendsModal = observer(({show, onHide}) => {
 
   const addFriend = async () => {
     try {
-      let friends = {}
       let friendId = Number(newFriendId)
+
+      if (!newFriendId || !friendId) {
+        throw 'ID должен быть числом!'
+      }
 
       if (user.friends.find(friend => friend.id === friendId)) {
         throw 'Данный пользователь уже ваш друг!'
       }
+
+      let friends = {}
       
       const {name} = await fetchOne(friendId)
 
