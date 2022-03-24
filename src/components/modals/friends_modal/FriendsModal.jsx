@@ -28,19 +28,16 @@ const FriendsModal = observer(({show, onHide}) => {
         throw 'Данный пользователь уже ваш друг!'
       }
 
-      let friends = {}
+      if (user.id === friendId) {
+        throw 'Даже не пытайтесь...'
+      }
       
       const {name} = await fetchOne(friendId)
 
       user.addFriends = [{id: friendId, name}].concat(user.addFriends)
 
-      friends.addFriends = user.addFriends
-      friends.newFriendId = friendId
-
-      putFriends({id: user.id, name: user.name}, friends, 'addFriend').then(data => console.log(data.message))
+      putFriends({id: user.id, name: user.name}, {id: friendId, name}, 'addFriend').then(data => console.log(data.message))
       setNewFriendId('')
-
-      if (user.id === friendId) alert('Стать своим другом - очень важный шаг в жизни любого человека!')
       
     } catch(e) {
       setNewFriendId('')

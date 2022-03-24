@@ -96,6 +96,8 @@ const Main = observer(() => {
   let logoutClick = () => {
     user.isAuth = false
     map.placemarks = []
+    global.mapCenter = global.myMap.getCenter()
+    global.mapZoom = global.myMap.getZoom()
     localStorage.removeItem('token')
   }
 

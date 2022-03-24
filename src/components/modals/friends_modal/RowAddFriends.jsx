@@ -9,16 +9,10 @@ const RowAddFriends = observer(({name, id, ...props}) => {
   const {user} = useContext(Context)
 
   const cancel = () => {
-    let friends = {}
 
     user.addFriends = user.addFriends.filter(friend => friend.id !== id)
 
-    friends.addFriends = user.addFriends
-    friends.newFriendId = id
-
-    putFriends({id: user.id, name: user.name}, friends, 'cancel').then(data => console.log(data.message))
-
-    if (user.id === id) alert('Сам свой запрос не отменишь - никто не отменит!')
+    putFriends({id: user.id, name: user.name}, {id, name}, 'cancel').then(data => console.log(data.message))
   }
 
   return (

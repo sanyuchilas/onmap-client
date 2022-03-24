@@ -1,8 +1,8 @@
 import { $authHost, $host } from "./http";
 
-export const createOne = async (coordinates, icon, short_description, full_description, files, userId) => {
+export const createOne = async (coordinates, icon, shortDescription, fullDescription, files, userId) => {
 
-  const {data} = await $authHost.post('/api/placemark/createOne', {coordinates, icon, short_description, full_description, files, userId})
+  const {data} = await $authHost.post('/api/placemark/createOne', {coordinates, icon, shortDescription, fullDescription, files, userId})
 
   return data.placemark
 }

@@ -9,14 +9,10 @@ const RowYourFriends = observer(({name, id, ...props}) => {
   const {user} = useContext(Context)
 
   const remove = () => {
-    let friends = {}
 
     user.friends = user.friends.filter(friend => friend.id !== id)
 
-    friends.friends = user.friends
-    friends.newFriendId = id
-
-    putFriends({id: user.id, name: user.name}, friends, 'delete').then(data => {
+    putFriends({id: user.id, name: user.name}, {id, name}, 'delete').then(data => {
       console.log(data.message)
     })
 

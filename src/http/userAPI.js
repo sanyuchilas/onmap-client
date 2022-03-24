@@ -20,12 +20,12 @@ export const check = async () => {
 }
 
 export const fetchFriends = async id => {
-  const {data} = await $authHost.post('api/user/getFriends', {id})
+  const {data} = await $authHost.get('api/user/getFriends', {params: {id}})
   return data
 }
 
-export const putFriends = async (friend, friends, event) => {
-  const {data} = await $authHost.put('api/user/putFriends', {friend, friends, event})
+export const putFriends = async (user, friend, event) => {
+  const {data} = await $authHost.put('api/user/putFriends', {user, friend, event})
   return data
 }
 
