@@ -4,7 +4,6 @@ import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import UserStore from './store/UserStore';
 import script from './yandex_map/script';
-import MapStore from './store/MapStore';
 
 document.cookie = "Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure"
 
@@ -15,8 +14,7 @@ script('https://api-maps.yandex.ru/2.1/?lang=ru_RU').then(() => startApp())
 function startApp() {
   ReactDOM.render(
     <Context.Provider value={{
-      user: new UserStore(),
-      map: new MapStore()
+      user: new UserStore()
     }}>
       <App />
     </Context.Provider>,

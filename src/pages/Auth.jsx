@@ -5,11 +5,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from './../utils/constants';
 import { fetchFriends, login, registration } from './../http/userAPI';
 import classes from './Auth.module.css'
-import { getAllPrivate, getAllPublic, getFriendsPlacemarks } from './../http/placemarkAPI';
 
 const Auth = observer(() => {
   const {user} = useContext(Context)
-  const {map} = useContext(Context)
 
   const navigate = useNavigate()
   const {pathname} = useLocation()
@@ -45,14 +43,6 @@ const Auth = observer(() => {
           user.name = data.name
           user.role = data.role
           user.avatar = data.avatar
-        })
-
-        getAllPrivate(data.id).then(info => {
-          map.placemarks = info
-        })
-
-        getFriendsPlacemarks(data.id).then(info => {
-          map.placemarksFriends = info
         })
 
         user.isAuth = true

@@ -20,7 +20,6 @@ const Main = observer(() => {
   const [firstClick, setFirstClick] = useState(false)
 
   const {user} = useContext(Context)
-  const {map} = useContext(Context)
 
   let navigate = useNavigate()
   
@@ -95,10 +94,13 @@ const Main = observer(() => {
 
   let logoutClick = () => {
     user.isAuth = false
-    map.placemarks = []
-    map.placemarksFriends = []
+
     global.mapCenter = global.myMap.getCenter()
     global.mapZoom = global.myMap.getZoom()
+  
+    global.placemarksCollection.removeAll()
+    global.placemarksFriendsCollection.removeAll()
+
     localStorage.removeItem('token')
   }
 
