@@ -96,6 +96,7 @@ const Main = observer(() => {
   let logoutClick = () => {
     user.isAuth = false
     map.placemarks = []
+    map.placemarksFriends = []
     global.mapCenter = global.myMap.getCenter()
     global.mapZoom = global.myMap.getZoom()
     localStorage.removeItem('token')
@@ -174,7 +175,10 @@ const Main = observer(() => {
           </button>
         </div>
       </div>
+
       <img data-id="add_placemark_preview" id={classes.add_mark_preview} src={placemark_preview}/>
+      
+      <div data-id="preview_modal" className={classes.preview_modal}></div>
 
       <Map/>
       <AlertModal show={alertVisible} onHide={() => setAlertVisible(false)} name={alertName}/>

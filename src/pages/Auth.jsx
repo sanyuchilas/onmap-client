@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from './../utils/constants';
 import { fetchFriends, login, registration } from './../http/userAPI';
 import classes from './Auth.module.css'
-import { getAllPrivate, getAllPublic } from './../http/placemarkAPI';
+import { getAllPrivate, getAllPublic, getFriendsPlacemarks } from './../http/placemarkAPI';
 
 const Auth = observer(() => {
   const {user} = useContext(Context)
@@ -28,28 +28,45 @@ const Auth = observer(() => {
 
   const click = async () => {
     try {
+
       let data
+
       if (isLogin) {
+
         data = await login(email, password)
         navigate(MAIN_ROUTE)
+
+        fetchFriends(data.id).then(info => {
+          user.comrades = info.comrades
+          user.addFriends = info.addFriends
+          user.friends = info.friends
+          user.id = data.id
+          user.email = data.email
+          user.name = data.name
+          user.role = data.role
+          user.avatar = data.avatar
+        })
+
+        getAllPrivate(data.id).then(info => {
+          map.placemarks = info
+        })
+
+        getFriendsPlacemarks(data.id).then(info => {
+          map.placemarksFriends = info
+        })
+
+        user.isAuth = true
+
       } else {
+
         data = await registration(null, email, name, password)
+
+        console.log(data.message)
+
         navigate(LOGIN_ROUTE)
+
       }
-      fetchFriends(data.id).then(info => {
-        user.comrades = info.comrades
-        user.addFriends = info.addFriends
-        user.friends = info.friends
-        user.id = data.id
-        user.email = data.email
-        user.name = data.name
-        user.role = data.role
-        user.avatar = data.avatar
-      })
-      getAllPrivate(data.id).then(info => {
-        map.placemarks = info
-      })
-      user.isAuth = true
+      
     } catch (e) {
       alert(e.response.data.message)
     }

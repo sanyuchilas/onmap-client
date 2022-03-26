@@ -11,23 +11,28 @@ import { Context } from './../../../index.js';
 import { createOne } from './../../../http/placemarkAPI';
 
 const AddPlacemarkModal = observer(({show, onHide}) => {
+
   const {user} = useContext(Context)
   const {map} = useContext(Context)
+
   const [icon, setIcon] = useState(null)
   const [shortDescription, setShortDescription] = useState('')
   const [fullDescription, setFullDescription] = useState('')
   const [files, setFiles] = useState('')
+  const [selectFriendsId, setSelectFriendsId] = useState([])
 
   const addPlacemark = async () => {
     
     onHide()
 
-    let placemark = await createOne(global.clickCoords || global.mapCenter, icon, shortDescription, fullDescription, files, user.id)
+    let placemark = await createOne(global.clickCoords || global.mapCenter, icon, shortDescription, fullDescription, files, user.id, selectFriendsId)
     
     map.placemarks = [placemark].concat(map.placemarks)
     global.mapCenter = global.myMap.getCenter()
     global.mapZoom = global.myMap.getZoom()
+    
     setIcon(null)
+    setSelectFriendsId([])
   }
 
   let placmemrakSelect = {
@@ -78,7 +83,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
             <div className={classes.row_subtitle + " col"}>
               <span>Краткое описание</span>
               <span className={classes.sub_subtitle + ' tr-white-color'}>
-                (появляется после клика на метке)
+                (появляется при предпросмотре метки)
               </span>
             </div>
             <div className={classes.row_content + " row"}>
@@ -100,7 +105,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
             <div className={classes.row_subtitle + " col"}>
               <span>Полное описание</span>
               <span className={classes.sub_subtitle + ' tr-white-color'}>
-                (появляется после двойного клика на метке)
+                (доступно при просмотре метки)
               </span>
             </div>
             <div className={classes.row_content + " row"}>
@@ -124,7 +129,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
             <div className={classes.row_subtitle + " row"}>
               Выберите друзей, которые смогут видеть вашу метку
             </div>
-            {user.friends.map(friend => <RowSelectFriends key={friend.id} className={classes.row_content + ' row'} name={friend.name}/>)}
+            {user.friends.map(friend => <RowSelectFriends key={friend.id} className={classes.row_content + ' row'} id={friend.id} name={friend.name} setSelectFriendsId={setSelectFriendsId} selectFriendsId={selectFriendsId}/>)}
           </div>
 
           <div className={classes.col + " col"} id={classes.col_end}>

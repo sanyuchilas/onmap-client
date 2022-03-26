@@ -13,14 +13,15 @@ const Map = observer(() => {
   //Подключаем яндекс API
   let placemarks = map.placemarks
   let placemarksPublic = map.placemarksPublic
+  let placemarksFriends = map.placemarksFriends
   
-  // useEffect(() => {
-    ymaps.ready(() => startYandexMap(ymaps, navigate, global.mapCenter || [55.42449385862713,38.00976220345276], global.mapZoom || 4, placemarks, placemarksPublic))
-  // }, [])
+  ymaps.ready(() => startYandexMap(ymaps, navigate, global.mapCenter || [55.42449385862713,38.00976220345276], global.mapZoom || 4, placemarks, placemarksPublic, placemarksFriends))
+
+  ymaps.ready(() => setTimeout(() => addPlacemarks(ymaps, navigate, placemarks, placemarksPublic, placemarksFriends), 0))
 
   // if (global.myMap) {
   //   console.log('asda')
-  //   addPlacemarks(ymaps, navigate, placemarks, placemarksPublic)
+  //   addPlacemarks(ymaps, navigate, placemarks, placemarksPublic, placemarksFriends)
   // }
 
   return (

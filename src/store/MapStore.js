@@ -4,6 +4,7 @@ class MapStore {
   constructor() {
     this._placemarks = []
     this._placemarksPublic = []
+    this._placemarksFriends = []
     makeAutoObservable(this)
   }
 
@@ -21,6 +22,14 @@ class MapStore {
 
   get placemarksPublic() {
     return this._placemarksPublic
+  }
+
+  set placemarksFriends(placemarksFriends) {
+    this._placemarksFriends = placemarksFriends
+  }
+
+  get placemarksFriends() {
+    return this._placemarksFriends
   }
 }
 

@@ -1,11 +1,11 @@
 import addPlacemarks from './addPlacemarks'
 
-function startYandexMap(ymaps, navigate, center, zoom, placemarks, placemarksPucblic) {
+function startYandexMap(ymaps, navigate, center, zoom, placemarks, placemarksPublic, placemarksFriends) {
   
   // Инициализируем карту
 
   document.getElementById('map').innerHTML = ''
-  
+
   let map = new ymaps.Map('map', {
     center,
     zoom
@@ -44,7 +44,9 @@ function startYandexMap(ymaps, navigate, center, zoom, placemarks, placemarksPuc
     }
   })
   
-  addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic)
+  //Инициализируем метки
+
+  // addPlacemarks(ymaps, navigate, placemarks, placemarksPublic, placemarksFriends)
 }
 
 export default startYandexMap

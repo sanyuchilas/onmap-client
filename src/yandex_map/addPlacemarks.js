@@ -1,20 +1,30 @@
 import createChipsLayout from './createChipsLayout'
 import { PLACEMARK_ROUTE } from "./../utils/constants";
 
-function addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic) {
+function addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic, placemarksFriends) {
   const map = global.myMap
 
   let calculateSize = (zoom) => {
-    return Math.min(Math.pow(zoom, 2) * 0.6 + 5, 50)
+    return Math.min(Math.pow(zoom, 2) * 1.3 + 5.05, 50)
   }
 
   let calculateSizePublic = (zoom) => {
-    return Math.min(Math.pow(zoom, 2) * 0.45, 50)
+    return Math.min(Math.pow(zoom, 2) * 0.7 + 0.95, 50)
   }
+
+  let calculateSizeFriends = (zoom) => {
+    return Math.min(Math.pow(zoom, 2) + 3.27, 50)
+  }
+
+  
+
+
+
+  //Слушатели клика для добавления метки
 
   let addPlacmeMarkBtn = document.querySelector('button[data-id="add_placemark"]')
   let placemarkIconPreview = document.querySelector('img[data-id="add_placemark_preview"]')
-  
+
   placemarkIconPreview.addEventListener('touchend', () => {
     global.mapZoom = map.getZoom()
     global.mapCenter = map.getCenter()
@@ -62,8 +72,10 @@ function addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic) {
 
   // `
  
+  let previewModal = document.querySelector('div[data-id="preview_modal"]')
 
-  placemarksPucblic.map(data => {
+  placemarksPucblic.forEach(data => {
+    console.log(Object.entries(data))
 
     let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
       iconLayout: createChipsLayout(calculateSizePublic, ymaps, data.icon)
@@ -72,24 +84,66 @@ function addPlacemarks(ymaps, navigate, placemarks, placemarksPucblic) {
       // navigate(PLACEMARK_ROUTE + '/' + data.id)
       window.open(data.model, '_blank')
     }).add('mouseenter', () => {
-      console.log('hover')
+      
     }).add('mouseleave', () => {
-      console.log('leave')
+      
     })
     map.geoObjects.add(placemark)
   })
  
-  placemarks.map(data => {
+  placemarks.forEach(data => {
+    console.log(Object.entries(data))
 
     let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
       iconLayout: createChipsLayout(calculateSize, ymaps, data.icon)
     })
+
     placemark.events.add('click', event => {
       navigate(PLACEMARK_ROUTE + '/' + data.id)
     }).add('mouseenter', () => {
-      console.log('hover')
+    
     }).add('mouseleave', () => {
-      console.log('leave')
+      
+    })
+    map.geoObjects.add(placemark)
+  })
+
+  placemarksFriends.forEach(data => {
+    console.log(Object.entries(data))
+
+    let mouseMove = event => {
+      previewModal.style.left = event.clientX + 'px'
+      previewModal.style.top = event.clientY + 'px'
+    }
+
+    let mouseDown = event => {
+      document.body.addEventListener('mousemove', mouseMove)
+    }
+
+    let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
+      iconLayout: createChipsLayout(calculateSizeFriends, ymaps, data.icon)
+    })
+
+    placemark.events.add('click', event => {
+      navigate(PLACEMARK_ROUTE + '/' + data.id)
+    }).add('mouseenter', event => {
+
+    }).add('mouseleave', () => {
+
+      previewModal.style.display = 'none'
+      document.body.removeEventListener('mousemove', mouseMove)
+      placemark.events.remove('mousedown')
+
+    }).add('mousemove', event => {
+      
+      let cursor = event.originalEvent.domEvent.originalEvent
+
+      previewModal.style.left = cursor.clientX + 'px'
+      previewModal.style.top = cursor.clientY + 'px'
+      previewModal.style.display = 'block'
+
+      placemark.events.add('mousedown', mouseDown)
+
     })
     map.geoObjects.add(placemark)
   })
