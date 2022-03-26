@@ -9,11 +9,12 @@ import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Context } from './../../../index.js';
 import { createOne } from './../../../http/placemarkAPI';
+import {addPlacemarks} from './../../../yandex_map/addPlacemarks'
+import { useNavigate } from 'react-router-dom';
 
 const AddPlacemarkModal = observer(({show, onHide}) => {
 
   const {user} = useContext(Context)
-  const {map} = useContext(Context)
 
   const [icon, setIcon] = useState(null)
   const [shortDescription, setShortDescription] = useState('')
@@ -21,13 +22,16 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
   const [files, setFiles] = useState('')
   const [selectFriendsId, setSelectFriendsId] = useState([])
 
+  const navigate = useNavigate()
+
   const addPlacemark = async () => {
     
     onHide()
 
     let placemark = await createOne(global.clickCoords || global.mapCenter, icon, shortDescription, fullDescription, files, user.id, selectFriendsId)
     
-    map.placemarks = [placemark].concat(map.placemarks)
+    addPlacemarks(global.ymaps, navigate, [placemark])
+
     global.mapCenter = global.myMap.getCenter()
     global.mapZoom = global.myMap.getZoom()
     

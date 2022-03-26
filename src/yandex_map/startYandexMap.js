@@ -1,6 +1,7 @@
 import addPlacemarks from './addPlacemarks'
 
-function startYandexMap(ymaps, navigate, center, zoom, placemarks, placemarksPublic, placemarksFriends) {
+function startYandexMap(ymaps, center, zoom) {
+  
   
   // Инициализируем карту
 
@@ -43,10 +44,29 @@ function startYandexMap(ymaps, navigate, center, zoom, placemarks, placemarksPub
       left: '10px'
     }
   })
-  
-  //Инициализируем метки
 
-  // addPlacemarks(ymaps, navigate, placemarks, placemarksPublic, placemarksFriends)
+
+  //Слушатели клика для добавления метки
+
+  let addPlacmeMarkBtn = document.querySelector('button[data-id="add_placemark"]')
+  let placemarkIconPreview = document.querySelector('img[data-id="add_placemark_preview"]')
+
+  placemarkIconPreview.addEventListener('touchend', () => {
+    global.mapZoom = map.getZoom()
+    global.mapCenter = map.getCenter()
+  })
+
+  addPlacmeMarkBtn.addEventListener('click', () => {
+    global.clickCoords = false
+    map.setCenter(map.getCenter())
+    global.mapZoom = map.getZoom()
+    global.mapCenter = map.getCenter()
+    let clickCoords = event => {
+      global.clickCoords = event.get('coords')
+      map.events.remove('click', clickCoords)
+    }
+    map.events.add('click', clickCoords)
+  })
 }
 
 export default startYandexMap

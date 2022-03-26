@@ -1,28 +1,34 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import addPlacemarks from './../yandex_map/addPlacemarks';
+import {addPlacemarks, addPlacemarksFriends, addPlacemarksPublic} from './../yandex_map/addPlacemarks';
 import startYandexMap from '../yandex_map/startYandexMap'
 import { Context } from './../index'
+import { getAllPrivate, getAllPublic, getFriendsPlacemarks } from './../http/placemarkAPI';
 
 const Map = observer(() => {
   const navigate = useNavigate()
-  const {map} = useContext(Context)
+  const {user} = useContext(Context)
   const ymaps = global.ymaps
 
-  //Подключаем яндекс API
-  let placemarks = map.placemarks
-  let placemarksPublic = map.placemarksPublic
-  let placemarksFriends = map.placemarksFriends
-  
-  ymaps.ready(() => startYandexMap(ymaps, navigate, global.mapCenter || [55.42449385862713,38.00976220345276], global.mapZoom || 4, placemarks, placemarksPublic, placemarksFriends))
+  useEffect(() => {
+    ymaps.ready(() => startYandexMap(ymaps, global.mapCenter || [55.42449385862713,38.00976220345276], global.mapZoom || 4))
 
-  ymaps.ready(() => setTimeout(() => addPlacemarks(ymaps, navigate, placemarks, placemarksPublic, placemarksFriends), 0))
+    getAllPublic().then(info => {
+      ymaps.ready(() => setTimeout(() => addPlacemarksPublic(ymaps, navigate, info), 0))
+    })
 
-  // if (global.myMap) {
-  //   console.log('asda')
-  //   addPlacemarks(ymaps, navigate, placemarks, placemarksPublic, placemarksFriends)
-  // }
+  }, [])
+
+  if (user.isAuth) {
+    getAllPrivate(user.id).then(info => {
+      ymaps.ready(() => setTimeout(() => addPlacemarks(ymaps, navigate, info), 0))
+    })
+
+    getFriendsPlacemarks(user.id).then(info => {
+      ymaps.ready(() => setTimeout(() => addPlacemarksFriends(ymaps, navigate, info), 0))
+    })
+  }
 
   return (
     <div id="map" className="map">Загрузка карты...</div>
