@@ -79,13 +79,35 @@ body.touch #add_mark_preview:hover {
   position: absolute;
   top: 0;
   left: 0;
-  width: 170px;
-  height: 100px;
-  margin-left: -170px;
-  margin-top: -100px;
-  background-color: rgba(0, 0, 0, 1);
-  z-index: 10;
+  width: auto;
+  max-width: 18rem;
+  min-width: 10rem;
+  height: auto;
+  background: linear-gradient(108.58deg, rgba(255, 250, 232, 0.95) 2.75%, rgba(255, 250, 232, 0.71) 96.49%);
+  box-shadow: 0 0 2rem -0.6rem rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
-  box-shadow: 0 0 1rem 1rem rgba(0, 0, 0, .3);
   display: none;
+  z-index: 10;
+  padding: 0.5rem;
+}
+
+.preview_modal_title {
+  background: rgba(196, 196, 196, 0.7);
+  box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.15);
+  padding: 0.2rem .5rem;
+  border-radius: .8rem;
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.preview_modal_main {
+  background: linear-gradient(260.77deg, rgba(196, 196, 196, 0.7) 58.51%, rgba(196, 196, 196, 0.2) 147.2%);
+  filter: drop-shadow(0 0 .8rem rgba(0, 0, 0, 0.25));
+  border-radius: .8rem;
+  width: 100%;
+  padding: 0.2rem .5rem;
+  margin-top: 0.5rem;
+  word-wrap: break-word;
 }

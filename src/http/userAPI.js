@@ -20,16 +20,16 @@ export const check = async () => {
 }
 
 export const fetchFriends = async id => {
-  const {data} = await $authHost.get('api/user/getFriends', {params: {id}})
+  const {data} = await $host.get('api/user/getFriends', {params: {id}})
   return data
 }
 
 export const putFriends = async (user, friend, event) => {
-  const {data} = await $authHost.put('api/user/putFriends', {user, friend, event})
+  const {data} = await $host.put('api/user/putFriends', {user, friend, event})
   return data
 }
 
 export const fetchOne = async id => {
-  const {data} = await $authHost.get('api/user/getOne', {params: {id}})
+  const {data} = await $host.get('api/user/getOne', {params: {id}})
   return data
 }

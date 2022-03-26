@@ -15,18 +15,18 @@ const Map = observer(() => {
     ymaps.ready(() => startYandexMap(ymaps, global.mapCenter || [55.42449385862713,38.00976220345276], global.mapZoom || 4))
 
     getAllPublic().then(info => {
-      ymaps.ready(() => setTimeout(() => addPlacemarksPublic(ymaps, navigate, info), 0))
+      ymaps.ready(() => setTimeout(() => addPlacemarksPublic(ymaps, navigate, info), 10))
     })
 
   }, [])
 
   if (user.isAuth) {
     getAllPrivate(user.id).then(info => {
-      ymaps.ready(() => setTimeout(() => addPlacemarks(ymaps, navigate, info), 0))
+      ymaps.ready(() => setTimeout(() => addPlacemarks(ymaps, navigate, info), 10))
     })
 
     getFriendsPlacemarks(user.id).then(info => {
-      ymaps.ready(() => setTimeout(() => addPlacemarksFriends(ymaps, navigate, info), 0))
+      ymaps.ready(() => setTimeout(() => addPlacemarksFriends(ymaps, navigate, info), 10))
     })
   }
 

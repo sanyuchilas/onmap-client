@@ -1,5 +1,6 @@
 import createChipsLayout from './createChipsLayout'
 import { PLACEMARK_ROUTE } from "./../utils/constants";
+import { getOnePublic } from './../http/placemarkAPI';
 
 function addPlacemarks(ymaps, navigate, placemarks) {
   const map = global.myMap
@@ -85,8 +86,10 @@ function addPlacemarksPublic(ymaps, navigate, placemarks) {
     placemark.events.add('click', event => {
       // navigate(PLACEMARK_ROUTE + '/' + data.id)
       window.open(data.model, '_blank')
-    }).add('mouseenter', () => {
-      
+    }).add('mouseenter', async () => {
+      const {title, shortDescription} = await getOnePublic(data.id)
+      previewModal.firstChild.innerHTML = title
+      previewModal.lastChild.innerHTML = shortDescription
     }).add('mouseleave', () => {
 
       previewModal.style.display = 'none'

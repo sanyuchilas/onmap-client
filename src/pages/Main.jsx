@@ -180,7 +180,14 @@ const Main = observer(() => {
 
       <img data-id="add_placemark_preview" id={classes.add_mark_preview} src={placemark_preview}/>
       
-      <div data-id="preview_modal" className={classes.preview_modal}></div>
+      <div data-id="preview_modal" className={classes.preview_modal}>
+        <div className={classes.preview_modal_title}>
+          
+        </div>
+        <div className={classes.preview_modal_main}>
+         
+        </div>
+      </div>
 
       <Map/>
       <AlertModal show={alertVisible} onHide={() => setAlertVisible(false)} name={alertName}/>
