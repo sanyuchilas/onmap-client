@@ -27,6 +27,12 @@ export const getFriendsPlacemarks = async (userId) => {
 
 export const getOnePublic = async (id) => {
   const {data} = await $host.get('/api/placemark/getOnePublic', {params: {id}})
+  
+  return data
+}
+
+export const getOnePrivate = async (id) => {
+  const {data} = await $host.get('/api/placemark/getOnePrivate', {params: {id}})
 
   return data
 }

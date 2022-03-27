@@ -82,6 +82,8 @@ body.touch #add_mark_preview:hover {
   width: auto;
   max-width: 18rem;
   min-width: 10rem;
+  margin-top: .6rem;
+  margin-left: .6rem;
   height: auto;
   background: linear-gradient(108.58deg, rgba(255, 250, 232, 0.95) 2.75%, rgba(255, 250, 232, 0.71) 96.49%);
   box-shadow: 0 0 2rem -0.6rem rgba(0, 0, 0, 0.25);

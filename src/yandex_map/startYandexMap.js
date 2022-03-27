@@ -1,8 +1,10 @@
-import addPlacemarks from './addPlacemarks'
-
 function startYandexMap(ymaps, center, zoom) {
+  //Инициализируем коллекции
+
+  global.placemarksCollection = new ymaps.GeoObjectCollection()
+  global.placemarksFriendsCollection = new ymaps.GeoObjectCollection()
   
-  
+
   // Инициализируем карту
 
   document.getElementById('map').innerHTML = ''

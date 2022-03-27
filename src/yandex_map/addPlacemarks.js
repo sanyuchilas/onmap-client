@@ -1,13 +1,15 @@
 import createChipsLayout from './createChipsLayout'
 import { PLACEMARK_ROUTE } from "./../utils/constants";
-import { getOnePublic } from './../http/placemarkAPI';
+import { getOnePrivate, getOnePublic } from './../http/placemarkAPI';
+
+
 
 function addPlacemarks(ymaps, navigate, placemarks) {
+  let placemarksCollection = global.placemarksCollection
+
   const map = global.myMap
 
   let previewModal = document.querySelector('div[data-id="preview_modal"]')
-
-  let placemarksCollection = new ymaps.GeoObjectCollection()
 
   let calculateSize = (zoom) => {
     return Math.min(Math.pow(zoom, 2) * 1.3 + 5.05, 50)
@@ -23,7 +25,6 @@ function addPlacemarks(ymaps, navigate, placemarks) {
   }
 
   placemarks.forEach(data => {
-    console.log(Object.entries(data))
 
     let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
       iconLayout: createChipsLayout(calculateSize, ymaps, data.icon)
@@ -31,13 +32,18 @@ function addPlacemarks(ymaps, navigate, placemarks) {
 
     placemark.events.add('click', event => {
       navigate(PLACEMARK_ROUTE + '/' + data.id)
-    }).add('mouseenter', () => {
-    
+    }).add('mouseenter', async () => {
+      const {shortDescription} = await getOnePrivate(data.id)
+      previewModal.firstChild.innerHTML = 'Ваша метка'
+      previewModal.lastChild.innerHTML = shortDescription || 'У данной метки отсутствует краткое описание...'
     }).add('mouseleave', () => {
 
       previewModal.style.display = 'none'
       document.body.removeEventListener('mousemove', mouseMove)
       placemark.events.remove('mousedown')
+
+      previewModal.firstChild.innerHTML = ''
+      previewModal.lastChild.innerHTML = ''
 
     }).add('mousemove', event => {
       
@@ -54,10 +60,11 @@ function addPlacemarks(ymaps, navigate, placemarks) {
     placemarksCollection.add(placemark)
   })
 
+  map.geoObjects.remove(placemarksCollection)
   map.geoObjects.add(placemarksCollection)
-
-  global.placemarksCollection = placemarksCollection
 }
+
+
 
 function addPlacemarksPublic(ymaps, navigate, placemarks) {
   const map = global.myMap
@@ -78,7 +85,6 @@ function addPlacemarksPublic(ymaps, navigate, placemarks) {
   } 
 
   placemarks.forEach(data => {
-    console.log(Object.entries(data))
 
     let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
       iconLayout: createChipsLayout(calculateSizePublic, ymaps, data.icon)
@@ -87,14 +93,19 @@ function addPlacemarksPublic(ymaps, navigate, placemarks) {
       // navigate(PLACEMARK_ROUTE + '/' + data.id)
       window.open(data.model, '_blank')
     }).add('mouseenter', async () => {
+
       const {title, shortDescription} = await getOnePublic(data.id)
       previewModal.firstChild.innerHTML = title
-      previewModal.lastChild.innerHTML = shortDescription
+      previewModal.lastChild.innerHTML = shortDescription || 'У данной метки отсутствует краткое описание...'
+
     }).add('mouseleave', () => {
 
       previewModal.style.display = 'none'
       document.body.removeEventListener('mousemove', mouseMove)
       placemark.events.remove('mousedown')
+
+      previewModal.firstChild.innerHTML = ''
+      previewModal.lastChild.innerHTML = ''
 
     }).add('mousemove', event => {
       
@@ -112,12 +123,14 @@ function addPlacemarksPublic(ymaps, navigate, placemarks) {
   })
 }
 
+
+
 function addPlacemarksFriends(ymaps, navigate, placemarks) {
+  let placemarksFriendsCollection = global.placemarksFriendsCollection
+
   const map = global.myMap
 
   let previewModal = document.querySelector('div[data-id="preview_modal"]')
-
-  let placemarksFriendsCollection = new ymaps.GeoObjectCollection()
 
   let calculateSizeFriends = (zoom) => {
     return Math.min(Math.pow(zoom, 2) + 3.27, 50)
@@ -133,7 +146,6 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
   }
 
   placemarks.forEach(data => {
-    console.log(Object.entries(data))
 
     let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
       iconLayout: createChipsLayout(calculateSizeFriends, ymaps, data.icon)
@@ -141,13 +153,20 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
 
     placemark.events.add('click', event => {
       navigate(PLACEMARK_ROUTE + '/' + data.id)
-    }).add('mouseenter', event => {
+    }).add('mouseenter', async event => {
+
+      const {shortDescription} = await getOnePrivate(data.id)
+      previewModal.firstChild.innerHTML = 'Метка ' + data.friend.name
+      previewModal.lastChild.innerHTML = shortDescription || 'У данной метки отсутствует краткое описание...'
 
     }).add('mouseleave', () => {
 
       previewModal.style.display = 'none'
       document.body.removeEventListener('mousemove', mouseMove)
       placemark.events.remove('mousedown')
+
+      previewModal.firstChild.innerHTML = ''
+      previewModal.lastChild.innerHTML = ''
 
     }).add('mousemove', event => {
       
@@ -161,10 +180,12 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
 
     })
 
-    map.geoObjects.add(placemarksFriendsCollection)
+    placemarksFriendsCollection.add(placemark)
 
-    global.placemarksFriendsCollection = placemarksFriendsCollection
   })
+
+  map.geoObjects.remove(placemarksFriendsCollection)
+  map.geoObjects.add(placemarksFriendsCollection)
 }
 
 export {addPlacemarks, addPlacemarksFriends, addPlacemarksPublic}

@@ -34,18 +34,18 @@ const Auth = observer(() => {
         data = await login(email, password)
         navigate(MAIN_ROUTE)
 
+        user.id = data.id
+        user.email = data.email
+        user.name = data.name
+        user.role = data.role
+        user.avatar = data.avatar
+        user.isAuth = true
+
         fetchFriends(data.id).then(info => {
           user.comrades = info.comrades
           user.addFriends = info.addFriends
           user.friends = info.friends
-          user.id = data.id
-          user.email = data.email
-          user.name = data.name
-          user.role = data.role
-          user.avatar = data.avatar
         })
-
-        user.isAuth = true
 
       } else {
 
