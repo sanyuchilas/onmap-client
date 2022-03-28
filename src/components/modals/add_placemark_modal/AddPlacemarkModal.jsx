@@ -1,5 +1,5 @@
-import MyFileInput from './../../UI/file_input/MyFileInput';
-import MySelect from './../../UI/select/MySelect';
+import MyFileInput from '../../UI/file_input/MyFileInput';
+import MySelect from '../../UI/select/MySelect';
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import selectArrow from './../../../assets/img/selectArrow.svg'
@@ -7,9 +7,9 @@ import classes from './AddPlacemarkModal.module.css'
 import RowSelectFriends from './RowSelectFriends';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
-import { Context } from './../../../index.js';
-import { createOne } from './../../../http/placemarkAPI';
-import {addPlacemarks} from './../../../yandex_map/addPlacemarks'
+import { Context } from '../../../index.js';
+import { createOne } from '../../../http/placemarkAPI';
+import {addPlacemarks} from '../../../yandex_map/addPlacemarks'
 import { useNavigate } from 'react-router-dom';
 
 const AddPlacemarkModal = observer(({show, onHide}) => {
