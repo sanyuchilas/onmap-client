@@ -72,6 +72,14 @@
   margin-left: auto;
 }
 
+.error {
+  color: rgba(255, 0, 0, 0.85);
+  width: 100%;
+  max-width: 30rem;
+  margin-bottom: -0.2rem;
+  margin-top: 0.25rem;
+}
+
 @keyframes ani_auth {
   0% {
     opacity: 0;

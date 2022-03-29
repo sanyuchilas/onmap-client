@@ -74,3 +74,17 @@ body.touch button.light.active {
   background: #fff !important;
   color: #d8c8c8 !important;
 }
+
+button.btn_disabled {
+  cursor: not-allowed !important;
+  opacity: .6;
+  background: #c4c4c4 !important;
+  border: 0.17rem solid #c4c4c4;
+  color: #f6f4f4 !important;
+}
+
+button.btn_disabled:hover {
+  background:  #c4c4c4 !important;
+  border: 0.17rem solid #c4c4c4;
+  color: #f6f4f4 !important;
+}

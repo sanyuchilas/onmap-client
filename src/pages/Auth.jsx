@@ -1,6 +1,6 @@
 import { Context } from './../index';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE, MAIN_ROUTE, REGISTRATION_ROUTE } from './../utils/constants';
 import { fetchFriends, login, registration } from './../http/userAPI';
@@ -12,16 +12,102 @@ const Auth = observer(() => {
   const navigate = useNavigate()
   const {pathname} = useLocation()
 
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-
   let isLogin = pathname === LOGIN_ROUTE
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [emailDirty, setEmailDirty] = useState(false)
+  const [passwordDirty, setPasswordDirty] = useState(false)
+  const [nameDirty, setNameDirty] = useState(false)
+  const [emailError, setEmailError] = useState('Email не может быть пустым!')
+  const [passwordError, setPasswordError] = useState('Пароль не может быть пустым!')
+  const [nameError, setNameError] = useState('Имя не может быть пустым!')
+
+  const [formValid, setFormValid] = useState(false)
+
+  useEffect(() => {
+    if (!isLogin) {
+      emailError || passwordError || nameError ? setFormValid(false) : setFormValid(true)
+    } else {
+      emailError || passwordError ? setFormValid(false) : setFormValid(true)
+    }
+  }, [emailError, passwordError, nameError, isLogin])
+
+  const blurHandler = event => {
+    switch (event.target.name) {
+      case 'email':
+        setEmailDirty(true)
+        break
+      case 'password':
+        setPasswordDirty(true)
+        break
+      case 'name':
+        setNameDirty(true)
+        break
+    }
+  }
+
+  const emailHandler = event => {
+    setEmail(event.target.value)
+    if (!String(event.target.value)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )) {
+      setEmailError('Некорректный email!')
+      if (!event.target.value) {
+        setEmailError('Email не может быть пустым!')
+      }
+    } else {
+      setEmailError('')
+    }
+  }
+
+  const passwordHandler = event => {
+    setPassword(event.target.value)
+    if (event.target.value.length > 32) {
+      setPasswordError('Пароль должен быть короче 33 символов!')
+    } else {
+      setPasswordError('')
+      if (!event.target.value) {
+        setPasswordError('Пароль не может быть пустым!')
+      }
+    }
+  }
+
+  const nameHandler = event => {
+    setName(event.target.value)
+    if (event.target.value.length > 64) {
+      setNameError('Имя должно быть короче 65 символов!')
+    } else {
+      setNameError('')
+      if (!event.target.value) {
+        setNameError('Имя не может быть пустым!')
+      }
+    }
+  }
 
   const changeActive = event => {
     let inputs = document.querySelectorAll('input')
     Array.from(inputs).map(input => input.classList.contains('active') && input.classList.remove('active'))
     event.target.classList.add('active')
+  }
+
+  const toRegistration = () => {
+    document.getElementById('animate_main_auth').classList.add(classes.animate_auth)
+    setTimeout(() => document.getElementById('animate_main_auth').classList.remove(classes.animate_auth), 200)
+    setFormValid(false)
+  }
+
+  const toLogin = () => {
+    document.getElementById('animate_main_auth').classList.add(classes.animate_auth)
+    setTimeout(() => document.getElementById('animate_main_auth').classList.remove(classes.animate_auth), 200)
+  }
+
+  const removeActiveInputs = event => {
+    if (!event.target.classList.contains('active'))
+      Array.from(document.querySelectorAll('input')).map(input => input.classList.remove('active'))
   }
 
   const click = async () => {
@@ -63,10 +149,7 @@ const Auth = observer(() => {
   }
   
   return (
-    <div className='container' onClick={event => {
-      if (!event.target.classList.contains('active'))
-        Array.from(document.querySelectorAll('input')).map(input => input.classList.remove('active'))
-    }}>
+    <div className='container' onClick={removeActiveInputs}>
       <div id={classes.header} className="header row">
         <button 
           className="dark"
@@ -88,33 +171,45 @@ const Auth = observer(() => {
           <div className='dark-gray-color' id={classes.title}>
             {pathname === '/login' ? 'Вход' : 'Регистрация'}
           </div>
-          {!isLogin && 
+          {(!isLogin && nameDirty && nameError) && <div className={classes.error}>{nameError}</div>}
+          {!isLogin &&
             <input
               value = {name} 
               type="text"
+              name = "name"
               className={classes.input_mb}
               placeholder='Введите имя...'
-              onChange={event => setName(event.target.value)}
+              maxLength={65}
+              onBlur={blurHandler}
+              onChange={nameHandler}
               onClick = {event => {
                 changeActive(event)
               }}
             />
           }
+          {(emailDirty && emailError) && <div className={classes.error}>{emailError}</div>}
           <input
             value={email} 
             type="text"
+            name = "email"
             className={classes.input_mb}
             placeholder='Введите email...'
-            onChange={event => setEmail(event.target.value)}
+            maxLength={64}
+            onBlur={blurHandler}
+            onChange={emailHandler}
             onClick={event => {
               changeActive(event)
             }}
           />
+          {(passwordDirty && passwordError) && <div className={classes.error}>{passwordError}</div>}
           <input
             value={password}
-            type="password" 
+            type="password"
+            name = "password"
             placeholder='Введите пароль...'
-            onChange={event => setPassword(event.target.value)}
+            maxLength={33}
+            onBlur={blurHandler}
+            onChange={passwordHandler}
             onClick={event => {
               changeActive(event)
             }}
@@ -127,10 +222,7 @@ const Auth = observer(() => {
               <Link 
                 to={REGISTRATION_ROUTE} 
                 className={classes.account} 
-                onClick={() => {
-                  document.getElementById('animate_main_auth').classList.add(classes.animate_auth)
-                  setTimeout(() => document.getElementById('animate_main_auth').classList.remove(classes.animate_auth), 200)
-                }}
+                onClick={toRegistration}
               >
                 Зарегистрируйтесь!
               </Link>
@@ -140,10 +232,7 @@ const Auth = observer(() => {
               <Link 
                 to={LOGIN_ROUTE} 
                 className={classes.account} 
-                onClick={() => {
-                  document.getElementById('animate_main_auth').classList.add(classes.animate_auth)
-                  setTimeout(() => document.getElementById('animate_main_auth').classList.remove(classes.animate_auth), 200)
-                }}
+                onClick={toLogin}
                 >
                   Войдите!
               </Link>
@@ -152,10 +241,11 @@ const Auth = observer(() => {
         <div className="row" id={classes.btn_wrapper}>
           <button 
             id={classes.log_reg_btn}
-            className='light'
+            className={!formValid ? 'light btn_disabled' : 'light'}
             onClick={() => {
               click()
             }}
+            disabled={!formValid}
           >
             {isLogin
             ? 'Войти'
