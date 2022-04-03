@@ -58,3 +58,9 @@
   font-size: 1.3rem;
   white-space: nowrap;
 }
+
+.error {
+  max-width: none !important;
+  margin-bottom: 0 !important;
+  margin-top: -.1rem !important;
+}

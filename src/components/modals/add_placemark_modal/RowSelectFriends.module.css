@@ -3,4 +3,5 @@
   padding: 0.5rem;
   height: auto !important;
   font-size: 1.2rem !important;
+  overflow-x: scroll;
 }

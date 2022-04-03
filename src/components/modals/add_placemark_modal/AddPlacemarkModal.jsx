@@ -21,6 +21,8 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
   const [fullDescription, setFullDescription] = useState('')
   const [files, setFiles] = useState('')
   const [selectFriendsId, setSelectFriendsId] = useState([])
+  const [shortActive, setShortActive] = useState(false)
+  const [longActive, setLongActive] = useState(false)
 
   const navigate = useNavigate()
 
@@ -44,18 +46,26 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
     childs: [
       {
         content: <img src="https://img.icons8.com/ios-glyphs/344/nfc-round-tag.png" alt="" />,
-        id: 2
+        id: 1
       },
       {
         content: <img src="https://img.icons8.com/ios/2x/sound-recording-copyright.png" alt="" />,
-        id: 3
+        id: 2
       },
       {
         content: <img src="https://img.icons8.com/ios-filled/2x/nfc-square-tag.png" alt="" />,
-        id: 4
+        id: 3
       },
     ], 
     title: 'Выберите иконку метки'
+  }
+
+  const removeActiveTextarea = event => {
+    if (event.target.className !== 'active') {
+      setShortActive(false)
+      setLongActive(false)
+      Array.from(document.querySelectorAll('textarea')).map(textArea => textArea.classList.remove('active'))
+    }
   }
   
   return (
@@ -64,10 +74,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
       onHide={onHide}
       centered
     >
-      <div className="container" onClick={event => {
-        if (event.target.className !== 'active')
-          Array.from(document.querySelectorAll('textarea')).map(textArea => textArea.classList.remove('active'))
-      }}>
+      <div className="container" onClick={removeActiveTextarea}>
         <div className={classes.header + " header row"}>
           <button 
             className={classes.back + " dark"}
@@ -93,16 +100,18 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
             <div className={classes.row_content + " row"}>
               <textarea
                 id='short_area' 
-                maxLength={75} 
+                maxLength={255} 
                 placeholder='Краткое описание...'
                 value={shortDescription}
                 onChange={event => setShortDescription(event.target.value)}
                 onClick={event => {
+                  setShortActive(true)
                   event.target.classList.add('active')
                   document.getElementById('long_area').classList.remove('active')
                 }}
               ></textarea>
             </div>
+            <div className={classes.counter + ` ${shortActive ? "dark" : "light"}-gray-color`}>{shortDescription.length}/255</div>
           </div>
           
           <div className={classes.col + " col"}>
@@ -115,15 +124,18 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
             <div className={classes.row_content + " row"}>
               <textarea
                 id='long_area'
+                maxLength={1023} 
                 placeholder='Полное описание...'
                 value={fullDescription}
                 onChange={event => setFullDescription(event.target.value)}
                 onClick={event => {
+                  setLongActive(true)
                   event.target.classList.add('active')
                   document.getElementById('short_area').classList.remove('active')
                 }}
               ></textarea>
             </div>
+            <div className={classes.counter + ` ${longActive ? "dark" : "light"}-gray-color`}>{fullDescription.length}/1023</div>
             <div className={classes.row_content + " row"}>
               <MyFileInput className={classes.file_input}/>
             </div>

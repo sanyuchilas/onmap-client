@@ -24,13 +24,14 @@ textarea {
   color: #a4a4a4;
   padding: .3rem;
   background: #f7f7f788;
-  min-width: 90%;
+  min-width: 100%;
   width: 100%;
   max-width: 100%;
-  min-height: 5rem;
+  min-height: 7rem;
   height: 7rem;
   max-height: 7rem;
   font-size: 1.3rem;
+  resize: none;
 }
 
 input.active, textarea.active {

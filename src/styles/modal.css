@@ -59,6 +59,7 @@
 
 .modal-content .container {
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal-sm .modal-content {

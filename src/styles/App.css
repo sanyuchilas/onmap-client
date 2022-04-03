@@ -102,6 +102,14 @@ body, html {
   align-items: center;
 }
 
+.valid_error {
+  color: rgba(255, 0, 0, 0.85);
+  width: 100%;
+  max-width: 30rem;
+  margin-bottom: -0.2rem;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+}
 
 @import url('input.css');
 @import url('modal.css');

@@ -75,16 +75,43 @@ body.touch button.light.active {
   color: #d8c8c8 !important;
 }
 
-button.btn_disabled {
+button.btn_light_disabled {
   cursor: not-allowed !important;
-  opacity: .6;
+  opacity: .4 !important;
   background: #c4c4c4 !important;
-  border: 0.17rem solid #c4c4c4;
+  border: 0.17rem solid #c4c4c4 !important;
   color: #f6f4f4 !important;
 }
 
-button.btn_disabled:hover {
+button.btn_light_disabled:hover {
   background:  #c4c4c4 !important;
-  border: 0.17rem solid #c4c4c4;
+  border: 0.17rem solid #c4c4c4 !important;
   color: #f6f4f4 !important;
+}
+
+button.btn_light_disabled:active {
+  border: 0.17rem solid #c4c4c4 !important;
+}
+
+body.touch button.btn_light_disabled:active {
+  border: 0.17rem solid #c4c4c4 !important;
+  color: #f6f4f4 !important;
+  background: #c4c4c4 !important;
+}
+
+button.btn_dark_disabled {
+  cursor: not-allowed !important;
+  opacity: .4 !important;
+  background: #a4a4a4 !important;
+  color: #f6f4f4 !important;
+}
+
+button.btn_dark_disabled:hover {
+  background:  #a4a4a4 !important;
+  color: #f6f4f4 !important;
+}
+
+body.touch button.btn_dark_disabled:active {
+  color: #f6f4f4 !important;
+  background: #a4a4a4 !important;
 }

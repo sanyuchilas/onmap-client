@@ -147,8 +147,8 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
 
   placemarks.forEach(data => {
 
-    let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {}, {
-      iconLayout: createChipsLayout(calculateSizeFriends, ymaps, data.icon)
+    let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {id: data.id}, {
+      iconLayout: createChipsLayout(calculateSizeFriends, ymaps, data.icon),
     })
 
     placemark.events.add('click', event => {
@@ -182,6 +182,10 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
 
     placemarksFriendsCollection.add(placemark)
 
+  })
+
+  placemarksFriendsCollection.toArray().forEach(placemark => {
+    console.log(placemark.properties._data.id)
   })
 
   map.geoObjects.remove(placemarksFriendsCollection)

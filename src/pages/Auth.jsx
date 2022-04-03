@@ -171,7 +171,7 @@ const Auth = observer(() => {
           <div className='dark-gray-color' id={classes.title}>
             {pathname === '/login' ? 'Вход' : 'Регистрация'}
           </div>
-          {(!isLogin && nameDirty && nameError) && <div className={classes.error}>{nameError}</div>}
+          {(!isLogin && nameDirty && nameError) && <div className='valid_error'>{nameError}</div>}
           {!isLogin &&
             <input
               value = {name} 
@@ -187,7 +187,7 @@ const Auth = observer(() => {
               }}
             />
           }
-          {(emailDirty && emailError) && <div className={classes.error}>{emailError}</div>}
+          {(emailDirty && emailError) && <div className='valid_error'>{emailError}</div>}
           <input
             value={email} 
             type="text"
@@ -201,7 +201,7 @@ const Auth = observer(() => {
               changeActive(event)
             }}
           />
-          {(passwordDirty && passwordError) && <div className={classes.error}>{passwordError}</div>}
+          {(passwordDirty && passwordError) && <div className='valid_error'>{passwordError}</div>}
           <input
             value={password}
             type="password"
@@ -241,7 +241,7 @@ const Auth = observer(() => {
         <div className="row" id={classes.btn_wrapper}>
           <button 
             id={classes.log_reg_btn}
-            className={!formValid ? 'light btn_disabled' : 'light'}
+            className={!formValid ? 'light btn_light_disabled' : 'light'}
             onClick={() => {
               click()
             }}

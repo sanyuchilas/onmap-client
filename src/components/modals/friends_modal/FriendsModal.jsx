@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Modal} from 'react-bootstrap'
 import classes from './FriendsModal.module.css'
 import RowRequestFriends from './RowRequestFriends';
@@ -19,10 +19,6 @@ const FriendsModal = observer(({show, onHide}) => {
   const addFriend = async () => {
     try {
       let friendId = Number(newFriendId)
-
-      if (!newFriendId || !friendId) {
-        throw 'ID должен быть числом!'
-      }
 
       if (user.friends.find(friend => friend.id === friendId)) {
         throw 'Данный пользователь уже ваш друг!'
@@ -45,12 +41,41 @@ const FriendsModal = observer(({show, onHide}) => {
     }
   }
 
-  let [newFriendId, setNewFriendId] = useState('')
+  const [newFriendId, setNewFriendId] = useState('')
+
+  const [addDirty, setAddDirty] = useState(false)
+  const [addError, setAddError] = useState('ID должен быть числом!')
+  const [addValid, setAddValid] = useState(false)
+
+  const addHandler = event => {
+    setNewFriendId(event.target.value)
+    if (event.target.value > 2147483647) {
+      setAddError('Слишком большой ID!')
+    } else {
+      setAddError('')
+      if (!event.target.value || !Number(event.target.value)) {
+        setAddError('ID должен быть числом!')
+      }
+    }
+  }
+
+  const blurHandler = event => {
+    setAddDirty(true)
+  }
+
+  useEffect(() => {
+    addError ? setAddValid(false) : setAddValid(true)
+  }, [addError])
+
+  const close = () => {
+    !newFriendId && setAddDirty(false)
+    onHide()
+  }
 
   return (
     <Modal
       show={show}
-      onHide={onHide}
+      onHide={close}
       centered
     >
       <div className="container" onClick={event => {
@@ -58,7 +83,7 @@ const FriendsModal = observer(({show, onHide}) => {
           Array.from(document.querySelectorAll('input')).map(input => input.classList.remove('active'))
       }}>
         <div className={classes.header + " header row"}>
-          <button className={classes.back + " dark"} onClick={onHide}>
+          <button className={classes.back + " dark"} onClick={close}>
             Назад
           </button>
           <span id={classes.user_id}>Ваш ID - {user.id}</span>
@@ -81,23 +106,25 @@ const FriendsModal = observer(({show, onHide}) => {
             {addFriends.map(({id, name}) => 
               <RowAddFriends key={id} id={id} className={classes.row_content + ' row'} name={name}/>
             )}
+            {(addDirty && addError) && <div className={classes.error + ' valid_error'}>{addError}</div>}
             <div className={classes.row_input + " row"}>
               <input 
                 type="text" 
                 placeholder='ID друга...'
                 id={classes.input}
                 value={newFriendId}
-                onChange={event => {
-                  setNewFriendId(event.target.value)
-                }}
+                onChange={addHandler}
+                onBlur={blurHandler}
+                maxLength={11}
                 onClick={event => {
                   event.target.classList.add('active')}
                 }
               />
               <button 
                 id={classes.add_friend} 
-                className='dark'
+                className={!addValid ? 'btn_dark_disabled' : 'dark'}
                 onClick={addFriend}
+                disabled={!addValid}
               >Добавить друга</button>
             </div>
           </div>
