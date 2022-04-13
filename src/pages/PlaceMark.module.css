@@ -1,0 +1,84 @@
+.col {
+  margin-top: auto;
+  flex-grow: 1;
+  font-size: 1.4rem;
+  padding-top: .5rem;
+}
+
+.row_subtitle {
+  text-align: center;
+  background-color: #a4a4a4;
+  border-radius: .417rem;
+  padding: .5rem;
+  padding-bottom: .8rem;
+  font-size: 1.5rem;
+  width: 100%;
+  margin-bottom: .5rem;
+}
+
+.row_content {
+  height: auto;
+  font-size: 1.2rem;
+  width: 100%;
+  margin-bottom: .5rem;
+}
+
+.sub_subtitle {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.header {
+  padding: 0 !important;
+}
+
+.main {
+  align-items: stretch !important;
+}
+
+.file_input {
+  width: 100%;
+}
+
+.back {
+  width: 100%;
+  max-width: 10rem;
+  padding: 0.5rem;
+  height: 75% !important;
+  margin-right: auto !important;
+}
+
+.select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#col_end {
+  justify-content: flex-end;
+  flex-grow: 0;
+}
+
+.change_placemark, .remove_placemark {
+  margin: 0 !important;
+  padding: 0.5rem;
+  height: auto !important;
+  width: 100%;
+  margin-bottom: -0.35rem !important;
+}
+
+.change_placemark {
+  margin-right: .7rem !important;
+}
+
+.counter {
+  height: 2rem;
+  font-size: .9rem;
+  margin-left: auto;
+  margin-right: .45rem;
+  margin-top: -2rem;
+}
+
+.rigth_info {
+  margin-right: .9rem;
+}

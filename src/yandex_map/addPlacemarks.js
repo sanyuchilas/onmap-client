@@ -31,7 +31,7 @@ function addPlacemarks(ymaps, navigate, placemarks) {
     })
 
     placemark.events.add('click', event => {
-      navigate(PLACEMARK_ROUTE + '/' + data.id)
+      navigate(PLACEMARK_ROUTE + '/private' + '/' + data.id)
     }).add('mouseenter', async () => {
       const {shortDescription} = await getOnePrivate(data.id)
       previewModal.firstChild.innerHTML = 'Ваша метка'
@@ -150,11 +150,10 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
     let placemark = new ymaps.Placemark(JSON.parse(data.coordinates), {id: data.id}, {
       iconLayout: createChipsLayout(calculateSizeFriends, ymaps, data.icon),
     })
-
+  
     placemark.events.add('click', event => {
-      navigate(PLACEMARK_ROUTE + '/' + data.id)
+      navigate(PLACEMARK_ROUTE + '/friend' + '/' + data.id)
     }).add('mouseenter', async event => {
-
       const {shortDescription} = await getOnePrivate(data.id)
       previewModal.firstChild.innerHTML = 'Метка ' + data.friendName
       previewModal.lastChild.innerHTML = shortDescription || 'У данной метки отсутствует краткое описание...'

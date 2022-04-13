@@ -2,18 +2,25 @@ import React from 'react';
 import classes from './MySelect.module.css'
 import ReactDOMServer from 'react-dom/server'
 
-const MySelect = ({data, setIcon, ...props}) => {
+const MySelect = ({data, setIcon, active, ...props}) => {
+
+  if (active) {
+    
+  }
+
   return (
     <div {...props}>
       <button 
         id = {classes.select_button}
-        className="row dark"
+        className={active ? classes.active + " row dark" : "row dark"}
         onClick={() => {
           document.getElementsByClassName(classes.childs)[0].classList.toggle(classes.open)
         }}
       >
         <span className={classes.title}>{data.title}</span>
-        <span className={classes.selected_child}></span>
+        <span className={classes.selected_child}>
+          {active && <img src={active} alt="" />}
+        </span>
         <img src={data.img} className={classes.select_arrow}/>
       </button>
       <div className={classes.childs + ' col'}>

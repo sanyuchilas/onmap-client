@@ -1,5 +1,5 @@
-import MyFileInput from '../../UI/file_input/MyFileInput';
-import MySelect from '../../UI/select/MySelect';
+import MyFileInput from './../../UI/file_input/MyFileInput';
+import MySelect from './../../UI/select/MySelect';
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import selectArrow from './../../../assets/img/selectArrow.svg'
@@ -7,9 +7,9 @@ import classes from './AddPlacemarkModal.module.css'
 import RowSelectFriends from './RowSelectFriends';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
-import { Context } from '../../../index.js';
-import { createOne } from '../../../http/placemarkAPI';
-import {addPlacemarks} from '../../../yandex_map/addPlacemarks'
+import { Context } from './../../../index.js';
+import { createOne } from './../../../http/placemarkAPI';
+import {addPlacemarks} from './../../../yandex_map/addPlacemarks'
 import { useNavigate } from 'react-router-dom';
 
 const AddPlacemarkModal = observer(({show, onHide}) => {
@@ -87,7 +87,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
         <div className={classes.main + " main col"}>
 
           <div className={classes.col + " col"}>
-            <MySelect data={placmemrakSelect} className={classes.select} setIcon={setIcon}/>
+            <MySelect data={placmemrakSelect} className={classes.select} active='' setIcon={setIcon}/>
           </div>
 
           <div className={classes.col + " col"}>
@@ -106,6 +106,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
                 onChange={event => setShortDescription(event.target.value)}
                 onClick={event => {
                   setShortActive(true)
+                  setLongActive(false)
                   event.target.classList.add('active')
                   document.getElementById('long_area').classList.remove('active')
                 }}
@@ -130,6 +131,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
                 onChange={event => setFullDescription(event.target.value)}
                 onClick={event => {
                   setLongActive(true)
+                  setShortActive(false)
                   event.target.classList.add('active')
                   document.getElementById('short_area').classList.remove('active')
                 }}

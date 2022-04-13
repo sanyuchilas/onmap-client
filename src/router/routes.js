@@ -18,7 +18,7 @@ export const publicRoutes = [
     component: <Auth/>
   },
   {
-    path: PLACEMARK_ROUTE + '/:id',
+    path: PLACEMARK_ROUTE + '/:type/:id',
     component: <PlaceMark/>
   }
 ]

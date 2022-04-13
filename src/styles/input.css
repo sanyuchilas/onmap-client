@@ -34,6 +34,12 @@ textarea {
   resize: none;
 }
 
+textarea#long_area {
+  min-height: 15rem;
+  height: 15rem;
+  max-height: 15rem;
+}
+
 input.active, textarea.active {
   border: .17rem solid #a4a4a4;
   background: rgba(255, 255, 255, 0.712);
