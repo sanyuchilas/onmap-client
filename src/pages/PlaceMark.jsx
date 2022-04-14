@@ -8,7 +8,7 @@ import { Context } from './../index.js';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { MAIN_ROUTE } from './../utils/constants';
-import { getOnePrivate } from './../http/placemarkAPI';
+import { deleteOnePlacemark, getOnePrivate, putOnePlacemark } from './../http/placemarkAPI';
 import RowSelectFriends from './../components/modals/add_placemark_modal/RowSelectFriends';
 import { fetchOne } from './../http/userAPI';
 
@@ -21,6 +21,8 @@ const PlaceMark = () => {
   const [shortDescription, setShortDescription] = useState('')
   const [fullDescription, setFullDescription] = useState('')
   const [selectFriendsId, setSelectFriendsId] = useState([])
+  const [files, setFiles] = useState('')
+  const [coordinates, setCoordinates] = useState('')
   const [shortActive, setShortActive] = useState(false)
   const [longActive, setLongActive] = useState(false)
   const [friendsName, setFriendsName] = useState('друга')
@@ -30,6 +32,8 @@ const PlaceMark = () => {
       setShortDescription(data.shortDescription)
       setFullDescription(data.fullDescription)
       setIcon(data.icon)
+      setSelectFriendsId(data.selectFriends)
+      setCoordinates(data.coordinates)
       params.type !== 'private' && fetchOne(data.userId).then(({name}) => {
         setFriendsName(name)
       })
@@ -39,16 +43,14 @@ const PlaceMark = () => {
   const navigate = useNavigate()
 
   const changePlacemark = async () => {
+    putOnePlacemark(params.id, coordinates, icon, shortDescription, fullDescription, files, user.id, selectFriendsId).then(data => console.log(data.message))
+  }
 
-    // let placemark = await createOne(global.clickCoords || global.mapCenter, icon, shortDescription, fullDescription, files, user.id, selectFriendsId)
-    
-    // addPlacemarks(global.ymaps, navigate, [placemark])
-
-    // global.mapCenter = global.myMap.getCenter()
-    // global.mapZoom = global.myMap.getZoom()
-    
-    // setIcon(null)
-    // setSelectFriendsId([])
+  const deletePlacemark = () => {
+    deleteOnePlacemark(params.id).then(data => {
+      console.log(data.message)
+      navigate(MAIN_ROUTE)
+    })
   }
 
   let placmemrakSelect = {
@@ -93,6 +95,11 @@ const PlaceMark = () => {
         </div>
 
         <div className={classes.main + " main col"}>
+          {/* {params.type === 'private' &&
+            <div className={classes.row_content}>
+              <button className={'dark ' + classes.change_btn}>Измените координаты метки</button>
+            </div>
+          } */}
 
           {params.type === 'private' &&
             <div className={classes.col + " col"}>
@@ -137,21 +144,30 @@ const PlaceMark = () => {
               </div>
             }
             <div className={classes.row_content + " row"}>
-              <textarea
-                id='long_area'
-                maxLength={1023} 
-                placeholder='Полное описание...'
-                value={fullDescription}
-                onChange={event => setFullDescription(event.target.value)}
-                onClick={event => {
-                  setLongActive(true)
-                  setShortActive(false)
-                  event.target.classList.add('active')
-                  document.getElementById('short_area').classList.remove('active')
-                }}
-              ></textarea>
+              {params.type === 'private' &&
+                <textarea
+                  id='long_area'
+                  maxLength={1023} 
+                  placeholder='Полное описание...'
+                  value={fullDescription}
+                  onChange={event => setFullDescription(event.target.value)}
+                  onClick={event => {
+                    setLongActive(true)
+                    setShortActive(false)
+                    event.target.classList.add('active')
+                    document.getElementById('short_area').classList.remove('active')
+                  }}
+                ></textarea>
+              }
+              {params.type !== 'private' &&  
+                <button className={'light ' + classes.friend_full_description}>
+                  {fullDescription}
+                </button>
+              }
             </div>
-            <div className={classes.counter + ` ${longActive ? "dark" : "light"}-gray-color`}>{fullDescription.length}/1023</div>
+            {params.type === 'private' &&
+              <div className={classes.counter + ` ${longActive ? "dark" : "light"}-gray-color`}>{fullDescription.length}/1023</div>
+            }
             {params.type === 'private' &&
               <div className={classes.row_content + " row"}>
                 <MyFileInput className={classes.file_input}/>
@@ -181,7 +197,7 @@ const PlaceMark = () => {
                 <button 
                   className={classes.remove_placemark + ' dark'}
                   id="remove_placemark" 
-                  onClick={changePlacemark}
+                  onClick={deletePlacemark}
                 >
                   Удалить метку
                 </button>

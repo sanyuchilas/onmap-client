@@ -51,7 +51,8 @@ function addPlacemarks(ymaps, navigate, placemarks) {
 
       previewModal.style.left = cursor.clientX + 'px'
       previewModal.style.top = cursor.clientY + 'px'
-      previewModal.style.display = 'block'
+      if (!document.body.classList.contains('touch'))
+        previewModal.style.display = 'block'
 
       placemark.events.add('mousedown', mouseDown)
 
@@ -113,7 +114,8 @@ function addPlacemarksPublic(ymaps, navigate, placemarks) {
 
       previewModal.style.left = cursor.clientX + 'px'
       previewModal.style.top = cursor.clientY + 'px'
-      previewModal.style.display = 'block'
+      if (!document.body.classList.contains('touch'))
+        previewModal.style.display = 'block'
 
       placemark.events.add('mousedown', mouseDown)
 
@@ -173,7 +175,8 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
 
       previewModal.style.left = cursor.clientX + 'px'
       previewModal.style.top = cursor.clientY + 'px'
-      previewModal.style.display = 'block'
+      if (!document.body.classList.contains('touch'))
+        previewModal.style.display = 'block'
 
       placemark.events.add('mousedown', mouseDown)
 

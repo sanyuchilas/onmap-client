@@ -37,8 +37,14 @@ export const getOnePrivate = async (id) => {
   return data
 }
 
-export const putOnePlacemark = async (coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId) => {
-  const {data} = await $host.put('/api/placemark/putOne', {coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId})
+export const putOnePlacemark = async (id, coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId) => {
+  const {data} = await $host.put('/api/placemark/putOne', {id, coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId})
+
+  return data
+}
+
+export const deleteOnePlacemark = async (id) => {
+  const {data} = await $host.delete('/api/placemark/deleteOne', {params: {id}})
 
   return data
 }

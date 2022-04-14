@@ -81,4 +81,22 @@
 
 .rigth_info {
   margin-right: .9rem;
+  text-align: right;
+}
+
+.friend_full_description {
+  overflow-wrap: break-word;
+  width: 100%;
+  border-radius: .53rem;
+  padding: 0.3rem;
+  box-shadow: 0 0 .5rem #a4a4a4;
+  height: auto !important;
+  text-align: left;
+}
+
+.change_btn {
+  width: 100%;
+  margin: .4rem 0 -0.2rem !important;
+  padding: .5rem !important;
+  height: auto !important;
 }
