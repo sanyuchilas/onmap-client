@@ -102,6 +102,14 @@ body, html {
   align-items: center;
 }
 
+.box-shadow-gray {
+  box-shadow: 0 0 .5rem #a4a4a4;
+}
+
+.border-radius-main {
+  border-radius: .417rem;
+}
+
 .valid_error {
   color: rgba(255, 0, 0, 0.85);
   width: 100%;

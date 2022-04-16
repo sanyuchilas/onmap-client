@@ -1,49 +1,121 @@
 import MyFileInput from './../components/UI/file_input/MyFileInput';
 import MySelect from './../components/UI/select/MySelect';
 import React, { useEffect, useState } from 'react';
-import selectArrow from './../assets/img/selectArrow.svg'
 import classes from './PlaceMark.module.css'
 import { useContext } from 'react';
 import { Context } from './../index.js';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { MAIN_ROUTE } from './../utils/constants';
+import { FILE_SPLITTER, MAIN_ROUTE } from './../utils/constants';
 import { deleteOnePlacemark, getOnePrivate, putOnePlacemark } from './../http/placemarkAPI';
 import RowSelectFriends from './../components/modals/add_placemark_modal/RowSelectFriends';
 import { fetchOne } from './../http/userAPI';
+import { observer } from 'mobx-react-lite';
+import placemarkSelect from './../utils/placemarkSelectIcon'
 
-const PlaceMark = () => {
+let firstShortDescription = ''
+let firstFullDescription = ''
+let firstIcon = ''
+let firstCoordinates = ''
+let firstFiles = []
+let firstSelectFriendsId = []
+
+const PlaceMark = observer(() => {
   const params = useParams()
 
   const {user} = useContext(Context)
 
-  const [icon, setIcon] = useState(null)
+  const [icon, setIcon] = useState('')
   const [shortDescription, setShortDescription] = useState('')
   const [fullDescription, setFullDescription] = useState('')
   const [selectFriendsId, setSelectFriendsId] = useState([])
-  const [files, setFiles] = useState('')
-  const [coordinates, setCoordinates] = useState('')
+  const [files, setFiles] = useState([])
   const [shortActive, setShortActive] = useState(false)
+  const [coordinates, setCoordinates] = useState('')
   const [longActive, setLongActive] = useState(false)
-  const [friendsName, setFriendsName] = useState('друга')
+  const [friendName, setFriendName] = useState('друга')
+  const [isLoading, setIsLoading] = useState(true)
+  const [changeValid, setChangeValid] = useState(false)
 
   useEffect(() => {
     getOnePrivate(params.id).then(data => {
       setShortDescription(data.shortDescription)
+      firstShortDescription = data.shortDescription
+
       setFullDescription(data.fullDescription)
+      firstFullDescription = data.fullDescription
+
       setIcon(data.icon)
-      setSelectFriendsId(data.selectFriends)
+      firstIcon = data.icon
+
       setCoordinates(data.coordinates)
+      firstCoordinates = data.coordinates
+
+      JSON.parse(data.files).length && setFiles(JSON.parse(data.files))
+      firstFiles = JSON.parse(data.files)
+
+      setSelectFriendsId(data.selectFriends)
+      firstSelectFriendsId = data.selectFriends
+
       params.type !== 'private' && fetchOne(data.userId).then(({name}) => {
-        setFriendsName(name)
+        setFriendName(name)
       })
+
+      setIsLoading(false)
     })
   }, [])
 
+  useEffect(() => {
+    if (shortDescription !== firstShortDescription 
+    || fullDescription !== firstFullDescription 
+    || selectFriendsId.join() !== firstSelectFriendsId.join()
+    || icon !== firstIcon 
+    || files.join() !== firstFiles.join() 
+    || coordinates !== firstCoordinates && !isLoading) {
+      setChangeValid(true)
+    } else {
+      setChangeValid(false)
+    }
+  }, [shortDescription, fullDescription, selectFriendsId, icon, files, coordinates])
+
+  useEffect(() => {
+    files.length > 50 ? setChangeValid(false) : setChangeValid(true)
+    for (let file of files) {
+      if (file.error) {
+        setChangeValid(false)
+        break
+      }
+    }
+  }, [files])
+
   const navigate = useNavigate()
 
-  const changePlacemark = async () => {
-    putOnePlacemark(params.id, coordinates, icon, shortDescription, fullDescription, files, user.id, selectFriendsId).then(data => console.log(data.message))
+  const changePlacemark = () => {
+    setChangeValid(false)
+
+    firstShortDescription = shortDescription
+    firstFullDescription = fullDescription
+    firstIcon = icon
+    firstCoordinates = coordinates
+    firstFiles = files
+    firstSelectFriendsId = selectFriendsId
+
+    const formData = new FormData()
+    let deleteFiles = []
+
+    files.forEach(file => {
+      file.name ? formData.append('files' , file) : deleteFiles.push(file)
+    })
+    formData.append('deleteFiles', JSON.stringify(deleteFiles))
+    formData.append('coordinates', coordinates)
+    formData.append('icon', icon)
+    formData.append('shortDescription', shortDescription)
+    formData.append('fullDescription', fullDescription)
+    formData.append('userId', user.id)
+    formData.append('selectFriendsId', JSON.stringify(selectFriendsId))
+    formData.append('id', params.id)
+
+    putOnePlacemark(formData).then(data => console.log(data.message))
   }
 
   const deletePlacemark = () => {
@@ -51,25 +123,6 @@ const PlaceMark = () => {
       console.log(data.message)
       navigate(MAIN_ROUTE)
     })
-  }
-
-  let placmemrakSelect = {
-    img: selectArrow, 
-    childs: [
-      {
-        content: <img src="https://img.icons8.com/ios-glyphs/344/nfc-round-tag.png" alt="" />,
-        id: 1
-      },
-      {
-        content: <img src="https://img.icons8.com/ios/2x/sound-recording-copyright.png" alt="" />,
-        id: 2
-      },
-      {
-        content: <img src="https://img.icons8.com/ios-filled/2x/nfc-square-tag.png" alt="" />,
-        id: 3
-      },
-    ], 
-    title: 'Выберите иконку метки'
   }
 
   const removeActiveTextarea = event => {
@@ -80,7 +133,7 @@ const PlaceMark = () => {
     }
   }
   
-  return (
+  return (!isLoading ?
     <div className="container" onClick={removeActiveTextarea}>
         <div className={classes.header + " header row"}>
           <button 
@@ -90,7 +143,7 @@ const PlaceMark = () => {
             Назад
           </button>
           <div className={classes.rigth_info}>
-            {params.type === 'private' ? 'Ваша метка' : `Метка ${friendsName}`}
+            {params.type === 'private' ? 'Ваша метка' : `Метка ${friendName}`}
           </div>
         </div>
 
@@ -103,7 +156,7 @@ const PlaceMark = () => {
 
           {params.type === 'private' &&
             <div className={classes.col + " col"}>
-            <MySelect data={placmemrakSelect} className={classes.select} active={icon || 'https://st2.depositphotos.com/2659027/5664/v/950/depositphotos_56640799-stock-illustration-map-pin-location-mark-icon.jpg'} setIcon={setIcon}/>
+            <MySelect data={placemarkSelect} className={classes.select} active={icon || 'https://st2.depositphotos.com/2659027/5664/v/950/depositphotos_56640799-stock-illustration-map-pin-location-mark-icon.jpg'} setIcon={setIcon}/>
           </div>
           }
 
@@ -161,7 +214,7 @@ const PlaceMark = () => {
               }
               {params.type !== 'private' &&  
                 <button className={'light ' + classes.friend_full_description}>
-                  {fullDescription}
+                  {fullDescription || 'У данной метки отсутствует полное описание...'}
                 </button>
               }
             </div>
@@ -170,7 +223,20 @@ const PlaceMark = () => {
             }
             {params.type === 'private' &&
               <div className={classes.row_content + " row"}>
-                <MyFileInput className={classes.file_input}/>
+                <MyFileInput className={classes.file_input} setFiles={setFiles} files={files}/>
+              </div>
+            }
+            {params.type !== 'private' &&
+              <div className={classes.row_content}>
+                  <div className={"light-gray-background border-radius-main box-shadow-gray row " + classes.files_for_friends}>
+                  {files.length ? files.map(name => 
+                    <a key={name} href={process.env.REACT_APP_API_URL + '/users-files/' + name} target="_blank">
+                      <button className={"dark row " + classes.files_for_friends_btn}>
+                        {name.split(FILE_SPLITTER)[1]}
+                      </button>
+                    </a>
+                  ) : 'У данной метки отсутствуют прикреплённые файлы...'}
+                  </div>
               </div>
             }
           </div>
@@ -188,8 +254,9 @@ const PlaceMark = () => {
             <div className={classes.col + " col"} id={classes.col_end}>
               <div className={classes.row_content + " row"}>
                 <button 
-                  className={classes.change_placemark + ' dark'}
-                  id="change_placemark" 
+                  className={classes.change_placemark + ` dark${!changeValid ? ' btn_dark_disabled' : ''}`}
+                  id="change_placemark"
+                  disabled={!changeValid}
                   onClick={changePlacemark}
                 >
                   Применить изменения
@@ -206,8 +273,8 @@ const PlaceMark = () => {
           }
 
         </div>
-      </div>
+      </div> : null
   );
-};
+});
 
 export default PlaceMark;

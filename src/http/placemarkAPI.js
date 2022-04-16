@@ -1,8 +1,12 @@
 import { $host } from "./http";
 
-export const createOne = async (coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId) => {
+export const createOne = async (formData) => {
 
-  const {data} = await $host.post('/api/placemark/createOne', {coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId})
+  const {data} = await $host.post('/api/placemark/createOne', formData, {
+    headers: {
+      'content-type': 'multipart/form-data'
+    }
+  })
 
   return data.placemark
 }
@@ -37,8 +41,12 @@ export const getOnePrivate = async (id) => {
   return data
 }
 
-export const putOnePlacemark = async (id, coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId) => {
-  const {data} = await $host.put('/api/placemark/putOne', {id, coordinates, icon, shortDescription, fullDescription, files, userId, selectFriendsId})
+export const putOnePlacemark = async (formData) => {
+  const {data} = await $host.put('/api/placemark/putOne', formData, {
+    headers: {
+      'content-type': 'multipart/form-data'
+    }
+  })
 
   return data
 }

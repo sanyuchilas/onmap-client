@@ -16,9 +16,9 @@
 }
 
 #add_files {
-  padding: .1rem 0rem .1rem .5rem;
   margin-top: 0.5rem;
   background-color: #fff;
+  box-shadow: 0 0 .2rem #a4a4a4a4;
   border-radius: .417rem;
   width: 100%;
   height: auto;
@@ -34,10 +34,16 @@
 
 .one_add_file {
   align-items: center;
-  margin: .2rem 0;
+  padding: 0.2rem 0;
+  padding-left: .5rem;
   display: flex;
   white-space: nowrap;
   width: 100%;
+}
+
+.one_add_file_error {
+  background: rgba(255, 0, 0, 0.05);
+  color: rgba(168, 112, 112, 0.533);
 }
 
 .delete_file {
@@ -57,4 +63,17 @@
 .cross_img:hover, .cross_img:active {
   cursor: pointer;
   opacity: 0.9;
+}
+
+.file_href {
+  color: #d8c8c8 !important;
+}
+
+.file_href:hover {
+  color: #917474bb !important;
+  transition: all .1s;
+}
+
+.error {
+  max-width: none !important;
 }

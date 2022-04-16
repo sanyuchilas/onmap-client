@@ -1,8 +1,7 @@
 import MyFileInput from './../../UI/file_input/MyFileInput';
 import MySelect from './../../UI/select/MySelect';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import selectArrow from './../../../assets/img/selectArrow.svg'
 import classes from './AddPlacemarkModal.module.css'
 import RowSelectFriends from './RowSelectFriends';
 import { observer } from 'mobx-react-lite';
@@ -11,26 +10,39 @@ import { Context } from './../../../index.js';
 import { createOne } from './../../../http/placemarkAPI';
 import {addPlacemarks} from './../../../yandex_map/addPlacemarks'
 import { useNavigate } from 'react-router-dom';
+import placemarkSelect from './../../../utils/placemarkSelectIcon'
 
 const AddPlacemarkModal = observer(({show, onHide}) => {
-
+  
   const {user} = useContext(Context)
 
-  const [icon, setIcon] = useState(null)
+  const [icon, setIcon] = useState('')
   const [shortDescription, setShortDescription] = useState('')
   const [fullDescription, setFullDescription] = useState('')
-  const [files, setFiles] = useState('')
+  const [files, setFiles] = useState([])
   const [selectFriendsId, setSelectFriendsId] = useState([])
   const [shortActive, setShortActive] = useState(false)
   const [longActive, setLongActive] = useState(false)
+  const [addValid, setAddValid] = useState(true)
 
   const navigate = useNavigate()
 
   const addPlacemark = async () => {
+    const formData = new FormData()
     
+    files.forEach(file => {
+      formData.append('files' , file)
+    })
+    formData.append('coordinates', JSON.stringify(global.clickCoords || global.mapCenter))
+    formData.append('icon', icon)
+    formData.append('shortDescription', shortDescription)
+    formData.append('fullDescription', fullDescription)
+    formData.append('userId', user.id)
+    formData.append('selectFriendsId', JSON.stringify(selectFriendsId))
+
     onHide()
 
-    let placemark = await createOne(global.clickCoords || global.mapCenter, icon, shortDescription, fullDescription, files, user.id, selectFriendsId)
+    let placemark = await createOne(formData)
     
     addPlacemarks(global.ymaps, navigate, [placemark])
 
@@ -41,25 +53,6 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
     setSelectFriendsId([])
   }
 
-  let placmemrakSelect = {
-    img: selectArrow, 
-    childs: [
-      {
-        content: <img src="https://img.icons8.com/ios-glyphs/344/nfc-round-tag.png" alt="" />,
-        id: 1
-      },
-      {
-        content: <img src="https://img.icons8.com/ios/2x/sound-recording-copyright.png" alt="" />,
-        id: 2
-      },
-      {
-        content: <img src="https://img.icons8.com/ios-filled/2x/nfc-square-tag.png" alt="" />,
-        id: 3
-      },
-    ], 
-    title: 'Выберите иконку метки'
-  }
-
   const removeActiveTextarea = event => {
     if (event.target.className !== 'active') {
       setShortActive(false)
@@ -67,7 +60,17 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
       Array.from(document.querySelectorAll('textarea')).map(textArea => textArea.classList.remove('active'))
     }
   }
-  
+
+  useEffect(() => {
+    files.length > 50 ? setAddValid(false) :  setAddValid(true)
+    for (let file of files) {
+      if (file.error) {
+        setAddValid(false)
+        break
+      }
+    }
+  }, [files])
+
   return (
     <Modal
       show={show}
@@ -87,7 +90,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
         <div className={classes.main + " main col"}>
 
           <div className={classes.col + " col"}>
-            <MySelect data={placmemrakSelect} className={classes.select} active='' setIcon={setIcon}/>
+            <MySelect data={placemarkSelect} className={classes.select} active='' setIcon={setIcon}/>
           </div>
 
           <div className={classes.col + " col"}>
@@ -139,7 +142,7 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
             </div>
             <div className={classes.counter + ` ${longActive ? "dark" : "light"}-gray-color`}>{fullDescription.length}/1023</div>
             <div className={classes.row_content + " row"}>
-              <MyFileInput className={classes.file_input}/>
+              <MyFileInput className={classes.file_input} setFiles={setFiles} files={files}/>
             </div>
           </div>
 
@@ -152,9 +155,10 @@ const AddPlacemarkModal = observer(({show, onHide}) => {
 
           <div className={classes.col + " col"} id={classes.col_end}>
             <button 
-              className={classes.add_placemark + ' dark'}
+              className={classes.add_placemark + ` dark${!addValid ? ' btn_dark_disabled' : ''}`}
               id="add_placemark" 
               onClick={addPlacemark}
+              disabled={!addValid}
             >
               Добавить метку
             </button>
