@@ -31,6 +31,8 @@ function addPlacemarks(ymaps, navigate, placemarks) {
     })
 
     placemark.events.add('click', event => {
+      global.mapZoom = map.getZoom()
+      global.mapCenter = map.getCenter()
       navigate(PLACEMARK_ROUTE + '/private' + '/' + data.id)
     }).add('mouseenter', async () => {
       const {shortDescription} = await getOnePrivate(data.id)
@@ -92,6 +94,8 @@ function addPlacemarksPublic(ymaps, navigate, placemarks) {
     })
     placemark.events.add('click', event => {
       // navigate(PLACEMARK_ROUTE + '/' + data.id)
+      global.mapZoom = map.getZoom()
+      global.mapCenter = map.getCenter()
       window.open(data.model, '_blank')
     }).add('mouseenter', async () => {
 
@@ -154,6 +158,8 @@ function addPlacemarksFriends(ymaps, navigate, placemarks) {
     })
   
     placemark.events.add('click', event => {
+      global.mapZoom = map.getZoom()
+      global.mapCenter = map.getCenter()
       navigate(PLACEMARK_ROUTE + '/friend' + '/' + data.id)
     }).add('mouseenter', async event => {
       const {shortDescription} = await getOnePrivate(data.id)

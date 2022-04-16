@@ -10,7 +10,7 @@ const Map = observer(() => {
   const navigate = useNavigate()
   const {user} = useContext(Context)
   const ymaps = global.ymaps
- 
+
   useEffect(() => {
     ymaps.ready(() => startYandexMap(ymaps, global.mapCenter || [55.42449385862713,38.00976220345276], global.mapZoom || 4))
 

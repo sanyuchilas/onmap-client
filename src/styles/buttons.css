@@ -77,7 +77,7 @@ body.touch button.light.active {
 
 button.btn_light_disabled {
   cursor: not-allowed !important;
-  opacity: .4 !important;
+  opacity: .45 !important;
   background: #c4c4c4 !important;
   border: 0.17rem solid #c4c4c4 !important;
   color: #f6f4f4 !important;
@@ -101,7 +101,7 @@ body.touch button.btn_light_disabled:active {
 
 button.btn_dark_disabled {
   cursor: not-allowed !important;
-  opacity: .4 !important;
+  opacity: .45 !important;
   background: #a4a4a4 !important;
   color: #f6f4f4 !important;
 }

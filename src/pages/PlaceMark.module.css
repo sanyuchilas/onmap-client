@@ -8,6 +8,7 @@
 .row_subtitle {
   text-align: center;
   background-color: #a4a4a4;
+  box-shadow: 0 0 .4rem #a4a4a4cf;
   border-radius: .417rem;
   padding: .5rem;
   padding-bottom: .8rem;
@@ -81,6 +82,7 @@
 
 .rigth_info {
   margin-right: .9rem;
+  margin-left: 0.5rem;
   text-align: right;
 }
 
@@ -98,5 +100,18 @@
   width: 100%;
   margin: .4rem 0 -0.2rem !important;
   padding: .5rem !important;
+  height: auto !important;
+}
+
+.files_for_friends {
+  margin-top: 0.5rem;
+  justify-content: flex-start !important;
+  flex-wrap: wrap;
+  padding: 0.25rem;
+}
+
+.files_for_friends_btn {
+  font-size: 1.1em !important;
+  padding: 0.2rem;
   height: auto !important;
 }

@@ -6,6 +6,7 @@
 }
 
 .row_subtitle {
+  box-shadow: 0 0 .4rem #a4a4a4cf;
   text-align: center;
   background-color: #a4a4a4;
   border-radius: .417rem;
