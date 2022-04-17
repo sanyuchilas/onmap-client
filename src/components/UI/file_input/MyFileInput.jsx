@@ -7,7 +7,7 @@ const MyFileInput = ({setFiles, files, ...props}) => {
   
   let valid = false
   files.map(file => {
-    if (file.name && file.name.length > 50) {
+    if (file.name && (file.name.length > 50 || file.name.includes('--'))) {
       file.error = true
       if (!valid) valid = true
     }
@@ -34,7 +34,7 @@ const MyFileInput = ({setFiles, files, ...props}) => {
         </span>
       </label>
       
-      {valid || files.length > 50 ? <div className={'valid_error ' + classes.error}>{files.length > 50 ?  'Нельзя прикрепить больше 50 файлов. Чтобы прикрепить больше, заархивируйте файлы и прикрепите их в виде архива!' : 'Количество символов в имени файла не  может превышать 50!'}</div> : null} 
+      {valid || files.length > 50 ? <div className={'valid_error ' + classes.error}>{files.length > 50 ?  'Нельзя прикрепить больше 50 файлов. Чтобы прикрепить больше, заархивируйте файлы и прикрепите их в виде архива!' : 'Имя файла не может содрежать символ "--" и не может быть длиннее 50 символов!'}</div> : null} 
 
       <div id={classes.add_files} style={{display: files.length ? 'flex' : 'none'}} className='col'>
         {files.map((file, index) =>

@@ -70,16 +70,15 @@ const PlaceMark = observer(() => {
     || fullDescription !== firstFullDescription 
     || selectFriendsId.join() !== firstSelectFriendsId.join()
     || icon !== firstIcon 
-    || files.join() !== firstFiles.join() 
     || coordinates !== firstCoordinates && !isLoading) {
       setChangeValid(true)
     } else {
       setChangeValid(false)
     }
-  }, [shortDescription, fullDescription, selectFriendsId, icon, files, coordinates])
+  }, [shortDescription, fullDescription, selectFriendsId, icon, coordinates])
 
   useEffect(() => {
-    files.length > 50 ? setChangeValid(false) : setChangeValid(true)
+    files.length > 50 || files.join() == firstFiles.join()  ? setChangeValid(false) : setChangeValid(true)
     for (let file of files) {
       if (file.error) {
         setChangeValid(false)
