@@ -4,7 +4,7 @@ export const createOne = async (formData) => {
 
   const {data} = await $host.post('/api/placemark/createOne', formData, {
     headers: {
-      'content-type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data'
     }
   })
 
@@ -44,7 +44,7 @@ export const getOnePrivate = async (id) => {
 export const putOnePlacemark = async (formData) => {
   const {data} = await $host.put('/api/placemark/putOne', formData, {
     headers: {
-      'content-type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data'
     }
   })
 
